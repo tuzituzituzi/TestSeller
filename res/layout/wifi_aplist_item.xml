@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aplist_item"
+    android:layout_width="fill_parent"
+    android:layout_height="90dp"
+    android:layout_marginTop="10dp"
+    android:descendantFocusability="blocksDescendants"
+    android:minHeight="90dp"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/apicon" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/wifi_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:text="TP-LINK-CA38F6"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/wifi_edit_flag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/wifi_edit" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView 
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/wifi_webspeed"
+                android:layout_margin="3dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/wifi_up" />
+
+            <TextView
+                android:id="@+id/wifi_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30KB/s"
+                android:textColor="@color/gray"
+                android:textSize="14dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/wifi_down" />
+
+            <TextView
+                android:id="@+id/wifi_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="55KB/s"
+                android:textColor="@color/gray"
+                android:textSize="14dp" />
+        </LinearLayout>
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp">
+            
+             <ImageView 
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/wifi_online"
+                android:layout_margin="3dp"/>
+            <TextView
+            android:id="@+id/wifi_online_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:textColor="@color/gray"
+            android:textSize="14dp" />
+            
+        </LinearLayout>
+
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_ap_manage"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/wifi_manage"
+            android:layout_width="match_parent"
+            android:padding="5dp"
+            android:text="管理"
+            android:textColor="@color/wifi_blue"
+            android:textSize="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

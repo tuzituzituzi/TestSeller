@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/aplist_bg"
+    android:padding="10dp">
+  
+    <TextView 
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:text="修改管理"
+        android:textSize="18dp"
+        android:textColor="@color/orange"/>
+     
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal">
+        <TextView 
+            android:id="@+id/tv_ap_name"
+            style="@style/tv_wifi_big"
+            android:text="无线名称："
+            android:padding="3dp"
+            />
+        <EditText 
+            android:id="@+id/ed_ap_name"
+            android:background="@color/wifi_darkblue"
+            style="@style/tv_wifi_small"
+            android:padding="5dp"
+            android:layout_toRightOf="@+id/tv_ap_name"
+            android:text="信曾哥，得永生"/>
+         
+        <TextView 
+            android:id="@+id/tv_ap_pwd"
+            style="@style/tv_wifi_big"
+            android:layout_below="@+id/tv_ap_name"
+            android:text="无线密码："
+            android:padding="3dp"
+            />
+        <EditText 
+            android:id="@+id/ed_ap_pwd"
+            android:background="@color/wifi_darkblue"
+            style="@style/tv_wifi_small"
+            android:padding="5dp"
+            android:layout_below="@+id/ed_ap_name"
+            android:layout_toRightOf="@+id/tv_ap_pwd"
+            android:text="12345678"/>
+          
+        <TextView 
+            android:id="@+id/tv_mac"
+            style="@style/tv_wifi_big"
+            android:layout_below="@+id/tv_ap_pwd"
+            android:layout_alignRight="@+id/tv_ap_pwd"
+            android:text="mac地址："
+            android:padding="3dp"
+            />
+        <TextView 
+            android:id="@+id/tv_ap_mac"
+            android:layout_alignTop="@+id/tv_mac"
+            android:layout_alignLeft="@+id/ed_ap_pwd"
+            style="@style/tv_wifi_small"
+            android:layout_marginTop="5dp"
+            android:text="fc:d7:33:51:74:4c"/>
+        
+        <TextView 
+            android:id="@+id/tv_online"
+            android:layout_below="@+id/tv_mac"
+            android:layout_alignRight="@+id/tv_mac"
+            android:text="在线时长："
+            style="@style/tv_wifi_big"
+            android:padding="3dp"/>
+        <TextView 
+            android:id="@+id/tv_online_time"
+            android:layout_alignTop="@+id/tv_online"
+            android:layout_alignLeft="@+id/tv_ap_mac"
+            style="@style/tv_wifi_small"
+            android:layout_marginTop="5dp"
+            android:text="5天10小时45分钟"/>
+          
+    </RelativeLayout>
+    
+  
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        >
+        
+        <Button
+            android:id="@+id/btn_ap_save"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:text="保存"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+        
+        <Button
+            android:id="@+id/btn_ap_cancel"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:text="取消"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+    
+    
+
+</LinearLayout>

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <View style="@style/dividing_line_style_thin" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp" >
+
+            <TextView
+                android:id="@+id/preferential_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="选择优惠券图片"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/preferential_info_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@id/preferential_tv"
+                android:onClick="selectImage"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_image" />
+        </RelativeLayout>
+
+        <View style="@style/dividing_line_style_thick" />
+
+        <View style="@style/dividing_line_style_thick" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/preferential_info_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:ems="10"
+                android:gravity="top"
+                android:hint="请输入优惠券描述（必填）"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:maxLines="4"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textSize="14sp" />
+
+            <requestFocus />
+        </LinearLayout>
+
+        <View style="@style/dividing_line_style_thick" />
+
+        <View style="@style/dividing_line_style_thick" />
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="优惠券名"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/preferential_info_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入优惠券名"
+                    android:textSize="14sp" />
+
+                <View style="@style/dividing_line_style_thin" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="类       型 "
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical" >
+
+                <Spinner
+                    android:id="@+id/preferential_info_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_margin="5dp"
+                    android:background="@color/white"
+                    android:entries="@array/coupon_category"
+                    android:textSize="14sp" />
+
+                <View style="@style/dividing_line_style_thin" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="开始时间"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/preferential_info_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入开始时间"
+                    android:textSize="14sp" />
+
+                <View style="@style/dividing_line_style_thin" />
+            </LinearLayout>
+        </LinearLayout>
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="结束时间"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical" >
+
+                <EditText
+                    android:id="@+id/preferential_info_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入结束时间"
+                    android:textSize="14sp" />
+
+                <View style="@style/dividing_line_style_thin" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="允许使用 "
+                android:textSize="14sp" />
+
+            <RadioGroup
+                android:id="@+id/preferential_info_is_allow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:textSize="14sp" >
+
+                <RadioButton
+                    android:id="@+id/preferential_info_can_allow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="允    许"
+                    android:textSize="14dp" />
+
+                <RadioButton
+                    android:id="@+id/preferential_info_can_not_allow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="不允许"
+                    android:textSize="14dp" />
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

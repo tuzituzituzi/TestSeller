@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">商户端</string>
+    
+    <string name="protocal_text"><u>用户协议</u></string>
+    <string name="copyright_text">Copyright © 2015年 wushuu. All rights reserved.</string>
+    
+    <!-- 商品类别 -->
+    <string-array name="goods_category">
+        <item value="0">服装</item>
+        <item value="1">餐饮</item>
+        <item value="2">娱乐</item>
+        <item value="3">其他</item>
+    </string-array>
+    
+    <!-- 优惠券类别 -->
+    <string-array name="coupon_category">
+        <item value="0">现金券</item>
+        <item value="1">折价券</item>
+    </string-array>
+    
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">释放刷新</string>
+    <string name="pull_to_refresh_refreshing_label">加载</string>
+
+</resources>

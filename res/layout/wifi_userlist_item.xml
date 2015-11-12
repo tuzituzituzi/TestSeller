@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="8dp"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants" >
+
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical" >
+        <LinearLayout 
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            >
+            
+            <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:background="@color/light_gray" />
+        
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corners_wifi4"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@+id/wifi_user_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/wifi_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/wifi_user_icon"
+                android:text="普天小王子" />
+
+            <ImageView
+                android:id="@+id/wifi_upload_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/wifi_user_name"
+                android:layout_below="@+id/wifi_user_name"
+                android:layout_marginTop="3dp"
+                android:src="@drawable/wifi_up" />
+
+            <TextView
+                android:id="@+id/wifi_upload_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/wifi_upload_img"
+                android:layout_toRightOf="@+id/wifi_upload_img"
+                android:text="30KB/s"
+                android:textSize="10dp" />
+
+            <ImageView
+                android:id="@+id/wifi_down_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/wifi_upload_img"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/wifi_upload_speed"
+                android:src="@drawable/wifi_down" />
+
+            <TextView
+                android:id="@+id/wifi_down_speed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/wifi_upload_img"
+                android:layout_toRightOf="@+id/wifi_down_img"
+                android:text="55KB/s"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/wifi_user_connect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/user_connect_time"
+                android:gravity="center_horizontal|bottom"
+                android:text="24h"
+                android:textColor="@color/gray"
+                android:textSize="12dp" />
+        </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/wifi_user_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/corners_wifi2"
+            android:padding="5dp" >
+
+            <TextView
+                android:id="@+id/wifi_userlist_mac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:f6:81:00:b3:72"
+                android:textColor="@color/gray"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/wifi_add_white"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:background="@color/orange"
+                android:onClick="onClick"
+                android:textColor="@color/white"
+                android:layout_below="@+id/wifi_userlist_mac"
+                android:layout_marginTop="3dp"
+                android:text="加白名单"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/wifi_add_black"
+               android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:background="@color/orange"
+                android:onClick="onClick"
+                android:textColor="@color/white"
+                android:layout_alignTop="@+id/wifi_add_white"
+                android:layout_toRightOf="@+id/wifi_add_white"
+                android:text="加黑名单"
+                android:layout_marginLeft="10dp"
+                android:textSize="10dp" />
+
+            <Button
+                android:id="@+id/wifi_add_vip"
+                android:layout_width="50dp"
+                android:layout_height="25dp"
+                android:background="@color/orange"
+                android:onClick="onClick"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/wifi_add_white"
+                android:text="加VIP"
+                android:textSize="10dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

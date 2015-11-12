@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/title_bg_style">
+
+    <include layout="@layout/back_icon"/>
+
+    <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/goods_on_shelves"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="出售中"
+        	android:textColor="@color/white"
+        	android:textSize="20sp"
+        	android:paddingLeft="15dp"
+        	android:paddingRight="15dp"
+        	android:paddingTop="5dp"
+        	android:paddingBottom="5dp"
+        	android:background="@drawable/tab_left_have_bg"/>
+        <TextView
+            android:id="@+id/goods_off_shelves"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="已下架"
+        	android:textColor="@color/main_color"
+        	android:textSize="20sp"
+        	android:paddingLeft="15dp"
+        	android:paddingRight="15dp"
+        	android:paddingTop="5dp"
+        	android:paddingBottom="5dp"
+        	android:background="@drawable/tab_right_have_not_bg"/>
+    </LinearLayout>
+    
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:onClick="addGoods"
+        android:clickable="true"
+        android:src="@drawable/add_hollow" />
+
+</RelativeLayout>
