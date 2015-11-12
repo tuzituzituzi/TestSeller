@@ -21,6 +21,7 @@ import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
 import com.whut.util.PullToRefreshBase.OnRefreshListener;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -181,9 +182,8 @@ public class WifiAPFragment extends Fragment implements OnClickListener,IBaseVie
 
 			holder.wifiName.setText(list.get(position).getMac());
 			System.out.println(list.get(position).getOnline());
-			holder.wifiOnlineNumber.setText("在线人數："+list.get(position).getOnline());
-			holder.wifiEditFlag
-					.setBackgroundResource(R.drawable.wifi_edit_flag);
+			holder.wifiOnlineNumber.setText(""+list.get(position).getOnline());
+//			holder.wifiEditFlag.setBackgroundResource(R.drawable.wifi_edit_flag);
 			holder.wifiUpload.setText(list.get(position).getUpload()+"KB/s");
 			holder.wifiDownload.setText(list.get(position).getDownload()+"KB/s");
 
@@ -192,17 +192,28 @@ public class WifiAPFragment extends Fragment implements OnClickListener,IBaseVie
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
-					WifiModifyFragment modifyFragment = new WifiModifyFragment();
-					FragmentTransaction ft = getFragmentManager().beginTransaction();
+					//上一个版本的
+//					WifiModifyFragment modifyFragment = new WifiModifyFragment();
+//					FragmentTransaction ft = getFragmentManager().beginTransaction();
+//					
+//					Bundle bundle = new Bundle();
+//					bundle.putString("mac", list.get(position).getMac());
+//					modifyFragment.setArguments(bundle);
+//					ft.replace(R.id.wifi_frame, modifyFragment,"apFragment");
+//					ft.addToBackStack("apFragment");
+//					ft.commit();
 					
-					Bundle bundle = new Bundle();
-					bundle.putString("mac", list.get(position).getMac());
-					modifyFragment.setArguments(bundle);
-					ft.replace(R.id.wifi_frame, modifyFragment,"apFragment");
-					ft.addToBackStack("apFragment");
-					ft.commit();
+					AlertDialog.Builder builder = new AlertDialog.Builder(context);
+					View view = inflater.inflate(R.layout.wifi_dialog, null);
 					
+					builder.setTitle("修改管理");
+					builder.setView(view);
+					builder.setPositiveButton("登录", null);
+					builder.setNegativeButton("取消", null);
+					System.out.println("dianlemei");
 					
+					AlertDialog dialog = builder.create();
+					dialog.show();
 				}
 			});
 			

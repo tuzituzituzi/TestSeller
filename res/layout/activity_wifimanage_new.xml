@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/white"
     >
     <include layout="@layout/common_titlebar"/>
     
@@ -12,14 +11,16 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"></FrameLayout>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        
+    android:background="@color/white"></FrameLayout>
     <LinearLayout 
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:background="@color/wifi_bg"
+        android:paddingTop="10dp">
         
         <ImageView
             android:id="@+id/wifi_ap_manage"
@@ -29,7 +30,7 @@
             android:layout_marginRight="8dp"
             android:onClick="onClick"
             android:clickable="true"
-            android:src="@drawable/apmanage"/>
+            android:src="@drawable/apmanage_2"/>
         <ImageView
             android:id="@+id/wifi_ap_portal"
             android:layout_height="wrap_content"
@@ -38,7 +39,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:onClick="onClick"
-            android:src="@drawable/potal"/>
+            android:src="@drawable/portal_2"/>
         <ImageView 
             android:id="@+id/wifi_ap_none"
             android:layout_height="wrap_content"
@@ -46,7 +47,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="8dp"
             android:onClick="onClick"
-            android:src="@drawable/none"/>
+            android:src="@drawable/portal_2"/>
     </LinearLayout>
     
 

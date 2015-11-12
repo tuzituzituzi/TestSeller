@@ -198,10 +198,10 @@ public class WifiClientActivity extends Activity implements IBaseView {
 						.findViewById(R.id.wifi_user_name);
 				userWifi.connectTime = (TextView) view
 						.findViewById(R.id.wifi_user_connect);
-				userWifi.userMac = (TextView) view.findViewById(R.id.wifi_userlist_mac);
-				userWifi.isBlack = (Button) view.findViewById(R.id.wifi_add_black);
-				userWifi.isWhite = (Button) view.findViewById(R.id.wifi_add_white);
-				userWifi.isVip = (Button) view.findViewById(R.id.wifi_add_vip);
+//				userWifi.userMac = (TextView) view.findViewById(R.id.wifi_userlist_mac);
+				userWifi.isBlack = view.findViewById(R.id.wifi_add_black);
+				userWifi.isWhite = view.findViewById(R.id.wifi_add_white);
+				userWifi.isVip = view.findViewById(R.id.wifi_add_vip);
 				userWifi.detail = view.findViewById(R.id.wifi_user_detail);
 				userWifi.upload = (TextView) view.findViewById(R.id.wifi_upload_speed);
 				userWifi.download = (TextView) view.findViewById(R.id.wifi_down_speed);
@@ -211,7 +211,7 @@ public class WifiClientActivity extends Activity implements IBaseView {
 			}
 			userWifi.userName.setText(list.get(position).getClient().getName());
 			
-			userWifi.userMac.setText(list.get(position).getClientName());
+//			userWifi.userMac.setText(list.get(position).getClientName());
 			int cnnTime = list.get(position).getClient().getCnnTime();
 			int authTime = list.get(position).getClient().getAuthTime();
 			String time = getTime(cnnTime, authTime);
@@ -220,18 +220,18 @@ public class WifiClientActivity extends Activity implements IBaseView {
 			userWifi.download.setText(list.get(position).getClient().getDownload()+"KB/s");
 			if(list.get(position).getClient().getIsBlack() == 0){
 				userWifi.isBlack.setClickable(false);
-				userWifi.isBlack.setText("已加黑名单");
-				userWifi.isBlack.setTextColor(getResources().getColor(R.color.gray));
+//				userWifi.isBlack.setText("已加黑名单");
+//				userWifi.isBlack.setTextColor(getResources().getColor(R.color.gray));
 			}
 			if(list.get(position).getClient().getIsWhite() == 0){
 				userWifi.isWhite.setClickable(false);
-				userWifi.isWhite.setText("已加白名单");
-				userWifi.isWhite.setTextColor(getResources().getColor(R.color.gray));
+//				userWifi.isWhite.setText("已加白名单");
+//				userWifi.isWhite.setTextColor(getResources().getColor(R.color.gray));
 			}
 			if(list.get(position).getClient().getIsVip() == 0){
 				userWifi.isVip.setClickable(false);
-				userWifi.isVip.setText("已加VIP");
-				userWifi.isVip.setTextColor(getResources().getColor(R.color.gray));
+//				userWifi.isVip.setText("已加VIP");
+//				userWifi.isVip.setTextColor(getResources().getColor(R.color.gray));
 			}
 			
 			
@@ -263,10 +263,10 @@ public class WifiClientActivity extends Activity implements IBaseView {
 		private ImageView userIcon;
 		private TextView userName;
 		private TextView connectTime;
-		private TextView userMac;
-		private Button isWhite;
-		private Button isBlack;
-		private Button isVip;
+//		private TextView userMac;
+		private View isWhite;
+		private View isBlack;
+		private View isVip;
 		private View detail;
 		private TextView upload;
 		private TextView download;

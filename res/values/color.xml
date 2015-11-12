@@ -23,5 +23,6 @@
      <!-- wifi中的藍色 -->
      <color name="wifi_blue">#03D3DF</color>
      <color name="wifi_darkblue">#14B8C1</color>
+     <color name="wifi_bg">#F4F4F4</color>
      
 </resources>

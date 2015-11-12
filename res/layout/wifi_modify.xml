@@ -5,7 +5,7 @@
     android:orientation="vertical" 
     android:background="@drawable/aplist_bg"
     android:padding="10dp">
-  
+  <!-- 
     <TextView 
         android:layout_weight="1"
         android:layout_height="0dp"
@@ -113,6 +113,6 @@
 
     </LinearLayout>
     
-    
+     -->
 
 </LinearLayout>

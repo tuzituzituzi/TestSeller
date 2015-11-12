@@ -44,6 +44,7 @@ public class WifiManageActivityNew extends Activity implements OnClickListener{
 		apNone = (ImageView) findViewById(R.id.wifi_ap_none);
 		apManage.setOnClickListener(this);
 		apPortal.setOnClickListener(this);
+		apManage.setImageResource(R.drawable.apmanage_1);
 	}
 
 	private void setTabSelection(int i) {
@@ -57,8 +58,11 @@ public class WifiManageActivityNew extends Activity implements OnClickListener{
 				apFragment = new WifiAPFragment();
 				tran.add(R.id.wifi_frame, apFragment);
 			}else{
+				
 				tran.show(apFragment);
 			}
+			apManage.setImageResource(R.drawable.apmanage_1);
+			apPortal.setImageResource(R.drawable.portal_2);
 			break;
 			
 		case 1:
@@ -66,8 +70,12 @@ public class WifiManageActivityNew extends Activity implements OnClickListener{
 				portalFragment = new WifiPortalFragment();
 				tran.add(R.id.wifi_frame,portalFragment);
 			}else {
+				
 				tran.show(portalFragment);
 			}
+			apManage.setImageResource(R.drawable.apmanage_2);
+			apPortal.setImageResource(R.drawable.portal_1);
+			break;
 	
 		default:
 			break;
