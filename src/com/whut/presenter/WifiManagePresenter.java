@@ -73,11 +73,13 @@ public class WifiManagePresenter implements IBasePresenter{
 				get.addHeader("JsonStub-Project-Key",
 						"10b717d9-f875-4e1f-9d34-3fb2efdba6d7");
 				get.addHeader("Content-Type", "application/json");
+				System.out.println("test1");
 				HttpClient client = new DefaultHttpClient();
 				HttpResponse response = client.execute(get);
-				
+				System.out.println("test2");
 				HttpEntity respondEntity = response.getEntity();
 				InputStream is = respondEntity.getContent();
+				System.out.println("test3");
 				BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 				String line = "";
 				while (null != (line = reader.readLine())) {

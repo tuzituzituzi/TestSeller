@@ -17,6 +17,7 @@ import com.whut.presenter.WifiManagePresenter;
 import com.whut.seller.R;
 import com.whut.util.JsonUtils;
 import com.whut.util.PullToRefreshListView;
+import com.whut.util.WifiModifyDialog;
 import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
 import com.whut.util.PullToRefreshBase.OnRefreshListener;
 
@@ -26,6 +27,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,6 +35,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -203,32 +206,55 @@ public class WifiAPFragment extends Fragment implements OnClickListener,IBaseVie
 //					ft.addToBackStack("apFragment");
 //					ft.commit();
 					
-					AlertDialog.Builder builder = new AlertDialog.Builder(context);
-					View view = inflater.inflate(R.layout.wifi_dialog, null);
-					
-					builder.setTitle("修改管理");
-					builder.setView(view);
-					builder.setPositiveButton("登录", null);
-					builder.setNegativeButton("取消", null);
-					System.out.println("dianlemei");
-					
-					AlertDialog dialog = builder.create();
+//					AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//					View view = inflater.inflate(R.layout.wifi_dialog, null);
+//					
+//					builder.setTitle("修改管理");
+//					builder.setView(view);
+//					builder.setPositiveButton("登录", null);
+//					builder.setNegativeButton("取消", null);
+//					System.out.println("dianlemei");
+//					
+//					AlertDialog dialog = builder.create();
+//					dialog.show();
+					WifiModifyDialog.Builder builder = new WifiModifyDialog.Builder(context);
+					builder.setWifiName("信曾哥，得永生");
+					builder.setWifiPwd("123456");
+					builder.setMac("fc:d7:33:51:74:4c");
+					builder.setOnlineTime("5天10小时45分钟");
+					builder.setPositiveButton(new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+						}
+					});
+					builder.setNegativeButton(new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+						}
+					});
+					WifiModifyDialog dialog = builder.create();
 					dialog.show();
 				}
 			});
 			
-//			holder.wifiEditFlag.setOnClickListener(new OnClickListener() {
-//				
-//				@Override
-//				public void onClick(View arg0) {
-//					
-//					final EditText edit = new EditText(context); 
-//					// TODO Auto-generated method stub
-//					new AlertDialog.Builder(context).setTitle("修改AP名").setIcon(
-//							android.R.drawable.ic_dialog_info).setView(
-//							edit).setPositiveButton("确定", null).setNegativeButton("取消", null).show();
-//				}
-//			});
+			holder.wifiEditFlag.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					
+					final EditText edit = new EditText(context); 
+					// TODO Auto-generated method stub
+					new AlertDialog.Builder(context).setTitle("修改AP名").setIcon(
+							android.R.drawable.ic_dialog_info).setView(
+							edit).setPositiveButton("确定", null).setNegativeButton("取消", null).show();
+				}
+			});
 			return view;
 		}
 	}

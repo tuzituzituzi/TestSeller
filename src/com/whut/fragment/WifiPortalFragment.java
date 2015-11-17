@@ -19,7 +19,7 @@ public class WifiPortalFragment extends Fragment {
 		WebView webView = (WebView)portalFragment.findViewById(R.id.common_web_view);
 		webView.setBackgroundResource(R.drawable.potal_bg);
 		webView.getSettings().setJavaScriptEnabled(true);
-		webView.loadUrl("http://219.153.20.141/web/store/index.html#/");
+		webView.loadUrl("http://42.62.11.38/ad-1/6ecba2-1/index.php");
 		return portalFragment;
 	}
 }

@@ -295,7 +295,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/white" />
+                android:src="@drawable/black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -319,7 +319,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/white" />
+                android:src="@drawable/vip" />
 
             <TextView
                 android:layout_width="wrap_content"

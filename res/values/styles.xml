@@ -130,5 +130,10 @@
         <item name="android:paddingTop">2dp</item>
         <item name="android:textColor">@color/gray</item>
     </style>
+    
+    <style name="Dialog" parent="android:style/Theme.Dialog">  
+        <item name="android:windowNoTitle">true</item>  
+        <item name="android:windowIsFloating">true</item>  
+    </style>
 
 </resources>
