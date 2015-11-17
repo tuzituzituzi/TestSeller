@@ -298,7 +298,7 @@ public class WiFiManageActivity extends Activity implements IBaseView,OnClickLis
 			JSONObject apObject;
 			for (int i = 0; i < aplistArray.size(); i++) {
 				apObject = aplistArray.getJSONObject(i);
-				list.add(new APListModel(apObject.getIntValue("id"), apObject
+				list.add(new APListModel(apObject.getIntValue("id"),apObject.getIntValue("shopId"),apObject.getString("ssid"),apObject.getString("nickname"),apObject
 						.getString("mac"), apObject.getIntValue("upload"),apObject.getIntValue("download"),apObject.getIntValue("online")));
 			}
 			adapter.notifyDataSetChanged();

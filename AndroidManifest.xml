@@ -89,6 +89,9 @@
         <!-- 应用服务 -->
         <service android:name="com.whut.component.service.VipNoticeService"></service>
         
+        
     </application>
 
+   
+        
 </manifest>

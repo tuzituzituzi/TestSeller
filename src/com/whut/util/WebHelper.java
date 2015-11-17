@@ -10,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -22,7 +23,22 @@ import com.whut.config.Constants;
 public class WebHelper {
 	
 	/**
-	 * 发送请求，获取返回Json字符串
+	 * 发送GET请求，获取返回Json字符串
+	 * @param url 请求地址
+	 * @param list 参数列表
+	 * @return json字符串
+	 * @throws Exception
+	 */
+	public static String getJsonString(String url,String... params)
+			throws Exception {
+		HttpGet get = new HttpGet(url);
+		HttpClient client = new DefaultHttpClient();
+		HttpResponse response = client.execute(get);
+		return showResponseResult(response);
+	}
+	
+	/**
+	 * 发送POST请求，获取返回Json字符串
 	 * @param url 请求地址
 	 * @param list 参数列表
 	 * @return json字符串

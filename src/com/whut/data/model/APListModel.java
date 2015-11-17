@@ -16,10 +16,16 @@ public class APListModel {
 	private int upload;
 	private int download;
 	private int online;
+	private String nickname;
 	
-	public APListModel(int id,String mac,int upload,int dowmload,int online) {
+
+	public APListModel(int id,int shopId,String ssid,String nickname,String mac,int upload,int dowmload,int online) {
 		// TODO Auto-generated constructor stub
+		
 		this.id = id;
+		this.shopId = shopId;
+		this.ssid = ssid;
+		this.nickname = nickname;
 		this.mac = mac;
 		this.upload = upload;
 		this.download = dowmload;
@@ -93,6 +99,12 @@ public class APListModel {
 	public void setOwner(int owner) {
 		this.owner = owner;
 	}
-	
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
 }

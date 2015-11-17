@@ -1,5 +1,6 @@
 package com.whut.fragment;
 
+import com.whut.config.Constants;
 import com.whut.seller.R;
 
 import android.app.Fragment;
@@ -19,7 +20,9 @@ public class WifiPortalFragment extends Fragment {
 		WebView webView = (WebView)portalFragment.findViewById(R.id.common_web_view);
 		webView.setBackgroundResource(R.drawable.potal_bg);
 		webView.getSettings().setJavaScriptEnabled(true);
-		webView.loadUrl("http://42.62.11.38/ad-1/6ecba2-1/index.php");
+		String url = "http://42.62.11.38/ad-1/wushuu/?shopId="+Constants.STORE_ID;
+		System.out.println(url);
+		webView.loadUrl(url);
 		return portalFragment;
 	}
 }

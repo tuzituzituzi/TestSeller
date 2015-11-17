@@ -101,7 +101,7 @@ public class WifiModifyDialog extends Dialog{
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						positiveButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
+						negativeButtonClickListener.onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
 					}
 				});
 			}

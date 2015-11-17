@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.zip.Inflater;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.pgyersdk.conf.b;
@@ -19,7 +18,7 @@ import com.whut.util.JsonUtils;
 import com.whut.util.PullToRefreshListView;
 import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
 import com.whut.util.PullToRefreshBase.OnRefreshListener;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -37,7 +36,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WifiClientActivity extends Activity implements IBaseView {
+@SuppressLint("ResourceAsColor")
+public class WifiClientActivity extends Activity implements IBaseView,OnClickListener {
 
 	private ListView userlist;
 	private UserListAdapter adapter;
@@ -220,16 +220,19 @@ public class WifiClientActivity extends Activity implements IBaseView {
 			userWifi.download.setText(list.get(position).getClient().getDownload()+"KB/s");
 			if(list.get(position).getClient().getIsBlack() == 0){
 				userWifi.isBlack.setClickable(false);
+				userWifi.isBlack.setBackgroundColor(R.color.gray);
 //				userWifi.isBlack.setText("已加黑名单");
 //				userWifi.isBlack.setTextColor(getResources().getColor(R.color.gray));
 			}
 			if(list.get(position).getClient().getIsWhite() == 0){
 				userWifi.isWhite.setClickable(false);
+				userWifi.isWhite.setBackgroundColor(R.color.gray);
 //				userWifi.isWhite.setText("已加白名单");
 //				userWifi.isWhite.setTextColor(getResources().getColor(R.color.gray));
 			}
 			if(list.get(position).getClient().getIsVip() == 0){
 				userWifi.isVip.setClickable(false);
+				userWifi.isVip.setBackgroundColor(R.color.gray);
 //				userWifi.isVip.setText("已加VIP");
 //				userWifi.isVip.setTextColor(getResources().getColor(R.color.gray));
 			}
@@ -273,22 +276,30 @@ public class WifiClientActivity extends Activity implements IBaseView {
 	}
 	
 	
-//	@Override
-//	public void onClick(View arg0) {
-//		// TODO Auto-generated method stub
-//		switch (arg0.getId()) {
-//		case R.id.wifi_add_black:
-//			alterAddDialog();
-//			break;
-//
-//		case R.id.wifi_add_white:
-//			break;
-//		case R.id.wifi_add_vip:
-//			break;
-//		default:
-//			break;
-//		}
-//	}
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		switch (arg0.getId()) {
+		case R.id.wifi_add_black:
+			alterAddDialog();
+			break;
+
+		case R.id.wifi_add_white:
+			alterAddDialog();
+			break;
+		case R.id.wifi_add_vip:
+			alterAddDialog();
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void alterAddDialog() {
+		// TODO Auto-generated method stub
+		Toast.makeText(WifiClientActivity.this, "增加黑名单", Toast.LENGTH_SHORT).show();
+		
+	}
 
 	@Override
 	public Object getInfo(int code) {

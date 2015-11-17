@@ -265,6 +265,8 @@
             android:id="@+id/wifi_add_white"
             android:layout_width="0dp"
             android:gravity="center"
+            android:clickable="true"
+            android:onClick="onClick"
             android:layout_height="wrap_content"
             android:layout_weight="1" >
 
@@ -290,7 +292,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center" >
+            android:gravity="center" 
+            android:onClick="onClick"
+            android:clickable="true">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -314,7 +318,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center" >
+            android:gravity="center"
+            android:clickable="true"
+            android:onClick="onClick" >
 
             <ImageView
                 android:layout_width="wrap_content"

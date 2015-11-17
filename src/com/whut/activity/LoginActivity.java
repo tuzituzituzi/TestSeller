@@ -73,19 +73,20 @@ public class LoginActivity extends Activity implements IBaseView{
 	 * 登录
 	 */
 	public void logIn(View v){
-//		dialog.show();
-//		dialog.setCancelable(false);
-//		if(!TextUtils.isEmpty(userName.getText())&& !TextUtils.isEmpty(password.getText())){
-//			userString = userName.getText().toString();
-//			psdString = password.getText().toString();
-//			dialog.cancel();
-//		}else{
-//			Toast.makeText(context, "用户名或密码不能为空！", Toast.LENGTH_SHORT).show();
-//			return;
-//		}
-//		System.out.println(userString+"  "+psdString);
-//		presenter.request(RequestParam.REQUEST_QUERY);
-		startActivity(new Intent(context,MainActivity.class));
+		dialog.show();
+		dialog.setCancelable(false);
+		if(!TextUtils.isEmpty(userName.getText())&& !TextUtils.isEmpty(password.getText())){
+			userString = userName.getText().toString();
+			psdString = password.getText().toString();
+			dialog.cancel();
+		}else{
+			Toast.makeText(context, "用户名或密码不能为空！", Toast.LENGTH_SHORT).show();
+			dialog.cancel();
+			return;
+		}
+		System.out.println(userString+"  "+psdString);
+		presenter.request(RequestParam.REQUEST_QUERY);
+//		startActivity(new Intent(context,MainActivity.class));
 	}
 	
 	/**

@@ -53,7 +53,7 @@ public class LoginAsyncRequest extends AsyncTask<String, Void, String> {
 			Header[] headers = response.getHeaders("set-cookie");
 			if(headers.length!=0){
 				Constants.USER_COOKIE = headers[0].getValue();
-				System.out.println(Constants.USER_COOKIE);
+				System.out.println("usercookie= "+Constants.USER_COOKIE);
 			}else{
 				throw new Exception();
 			}
