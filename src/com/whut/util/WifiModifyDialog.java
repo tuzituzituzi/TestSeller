@@ -6,6 +6,7 @@ import com.whut.seller.R;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -73,14 +74,24 @@ public class WifiModifyDialog extends Dialog{
             return this;  
         }  
 		
+		public String getWifiName() {
+			
+			return wifiName;
+		}
+
+		public String getWifiPwd() {
+			return wifiPwd;
+		}
+
 		public WifiModifyDialog create(){
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			final WifiModifyDialog dialog = new WifiModifyDialog(context,R.style.Dialog);
 			View layout = inflater.inflate(R.layout.wifi_dialog, null);
 			dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-			
-			((EditText)layout.findViewById(R.id.ed_ap_name)).setText(wifiName);
-			((EditText)layout.findViewById(R.id.ed_ap_pwd)).setText(wifiPwd);
+			final EditText name = (EditText)layout.findViewById(R.id.ed_ap_name);
+			EditText password = (EditText)layout.findViewById(R.id.ed_ap_pwd);
+			name.setText(wifiName);
+			name.setText(wifiPwd);
 			((TextView)layout.findViewById(R.id.tv_ap_mac)).setText(mac);
 			((TextView)layout.findViewById(R.id.tv_online_time)).setText(onlineTime);
 			
@@ -90,6 +101,9 @@ public class WifiModifyDialog extends Dialog{
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+						if(TextUtils.isEmpty(name.getText()) == false){
+							wifiName = name.getText().toString();
+						}
 						positiveButtonClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
 					}
 				});

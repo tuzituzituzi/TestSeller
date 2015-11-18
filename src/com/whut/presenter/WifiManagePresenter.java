@@ -40,14 +40,14 @@ public class WifiManagePresenter implements IBasePresenter {
 	public void request(int requestCode) {
 		// TODO Auto-generated method stub
 
-		view.getInfo(0);
 
-		// 0代表是刷新页面
 		if (requestCode == RequestParam.REQUEST_QUERY) {
+			view.getInfo(0);
 			// new WifiAsyncRequest(this).execute(RequestParam.GET_AP_LIST);
 			new WifiAsyncRequest(this).execute("http://jsonstub.com/ap/list");
 		} else if (requestCode == RequestParam.REQUEST_UPDATE) {
 			String ssid = (String) view.getInfo(1);
+			System.out.println("ssid="+ssid);
 			new SsidAsyncTask(this).execute(ssid);
 		}
 		
@@ -81,13 +81,10 @@ public class WifiManagePresenter implements IBasePresenter {
 				get.addHeader("JsonStub-Project-Key",
 						"10b717d9-f875-4e1f-9d34-3fb2efdba6d7");
 				get.addHeader("Content-Type", "application/json");
-				System.out.println("test1");
 				HttpClient client = new DefaultHttpClient();
 				HttpResponse response = client.execute(get);
-				System.out.println("test2");
 				HttpEntity respondEntity = response.getEntity();
 				InputStream is = respondEntity.getContent();
-				System.out.println("test3");
 				BufferedReader reader = new BufferedReader(
 						new InputStreamReader(is));
 				String line = "";
@@ -124,9 +121,9 @@ public class WifiManagePresenter implements IBasePresenter {
 			// TODO Auto-generated method stub
 			String web = "";
 			List<NameValuePair> ssidNameValue = new ArrayList<NameValuePair>();
-			NameValuePair ssidPair = new BasicNameValuePair("ssid","haha");
+			NameValuePair ssidPair = new BasicNameValuePair("ssid",params[0]);
 			ssidNameValue.add(ssidPair);
-			NameValuePair shopidPair = new BasicNameValuePair("shopId",params[0]);
+			NameValuePair shopidPair = new BasicNameValuePair("shopId","7");
 			ssidNameValue.add(shopidPair);
 			System.out.println(ssidNameValue);
 			try {
@@ -143,6 +140,7 @@ public class WifiManagePresenter implements IBasePresenter {
 		@Override
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
+			System.out.println("result="+result);
 			presenter.response(result, 1);
 			super.onPostExecute(result);
 		}

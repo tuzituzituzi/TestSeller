@@ -240,7 +240,7 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 					//
 					// AlertDialog dialog = builder.create();
 					// dialog.show();
-					WifiModifyDialog.Builder builder = new WifiModifyDialog.Builder(
+					final WifiModifyDialog.Builder builder = new WifiModifyDialog.Builder(
 							context);
 					builder.setWifiName(list.get(position).getSsid());
 					builder.setWifiPwd("123456");
@@ -256,7 +256,7 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 							// ssidAsyncTask.execute();
 							// pd = new ProgressDialog(context);
 							// pd.show();
-							ssid = "haha";
+							ssid = builder.getWifiName();
 							presenter.request(RequestParam.REQUEST_UPDATE);
 							dialog.dismiss();
 						}
@@ -344,8 +344,10 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 		pd.show();
 		if (code == 1) {
 			return ssid;
+		}else{
+			return null;
 		}
-		return null;
+		
 
 	}
 
