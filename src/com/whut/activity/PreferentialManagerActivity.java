@@ -140,7 +140,7 @@ public class PreferentialManagerActivity extends Activity{
 				list.add(new BasicNameValuePair("sId", params[0]));        //添加参数
 				// http://202.114.175.253:80/ECheckServer/login/load.do?username=zym&password=12345
 				try {
-					result = WebHelper.getJsonString(url, list);
+					result = WebHelper.postJsonString(url, list);
 				} catch (Exception e) {
 					result = "{\"code\":0,\"msg\":\""+e.toString()+"\",\"data\":[]}";
 					PgyCrashManager.reportCaughtException(context, e);

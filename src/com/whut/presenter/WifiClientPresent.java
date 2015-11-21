@@ -138,7 +138,7 @@ public class WifiClientPresent implements IBasePresenter {
 			ssidNameValue.add(shopidPair); 
 			System.out.println(ssidNameValue);
 			try {
-				web = WebHelper.getJsonString(RequestParam.ADD_BLACK_WHITE, ssidNameValue);
+				web = WebHelper.postJsonString(RequestParam.ADD_BLACK_WHITE, ssidNameValue);
 				System.out.println(web);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

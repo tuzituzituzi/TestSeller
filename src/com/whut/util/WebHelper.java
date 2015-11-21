@@ -29,7 +29,7 @@ public class WebHelper {
 	 * @return json字符串
 	 * @throws Exception
 	 */
-	public static String getJsonStringGet(String url)
+	public static String getJsonString(String url)
 			throws Exception {
 		HttpGet get = new HttpGet(url);
 		get.addHeader("Cookie", Constants.USER_COOKIE);
@@ -45,7 +45,7 @@ public class WebHelper {
 	 * @return json字符串
 	 * @throws Exception
 	 */
-	public static String getJsonString(String url, List<NameValuePair> list)
+	public static String postJsonString(String url, List<NameValuePair> list)
 			throws Exception {
 		HttpEntity entity = new UrlEncodedFormEntity(list);
 		HttpPost post = new HttpPost(url);

@@ -33,7 +33,7 @@ public class AsyncPost extends AsyncTask<Void, Integer, String> {
 	protected String doInBackground(Void... params) {
 		String result = "";
 		try {
-			result = WebHelper.getJsonString(url, values);
+			result = WebHelper.postJsonString(url, values);
 		} catch (Exception e) {
 			result = "{\"code\":0,\"msg\":\""+e.toString()+"\"}";
 		}

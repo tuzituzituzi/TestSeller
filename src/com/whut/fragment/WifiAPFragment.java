@@ -212,7 +212,8 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 				holder = (ViewHolder) view.getTag();
 			}
 
-			holder.wifiAlias.setText(list.get(position).getAlias());
+//			holder.wifiAlias.setText(list.get(position).getAlias());
+			holder.wifiAlias.setText("铁秤砣快餐");
 			System.out.println(list.get(position).getOnline());
 			holder.wifiOnlineNumber
 					.setText("" + list.get(position).getOnline());
@@ -384,8 +385,8 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 			}
 		} else if(code == RequestParam.REQUEST_UPDATE){
 			if (json.getIntValue("code") == 1) {
-				System.out.println("更新ssid成功");
-				Toast.makeText(context, "更新ssid成功", Toast.LENGTH_SHORT).show();
+				System.out.println("修改ssid成功,将在1分钟内生效");
+				Toast.makeText(context, "修改ssid成功,将在1分钟内生效", Toast.LENGTH_SHORT).show();
 			}
 			else{
 				System.out.println("更新ssid失败");
@@ -438,8 +439,8 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 			public void onClick(DialogInterface dialog, int which) {
 				String ssid = builder.getWifiName();
 				ssidAndpwd.add(ssid);
+				ssidAndpwd.add(Constants.STORE_ID);
 				String password = builder.getWifiPwd();
-				ssidAndpwd.add(password);
 				presenter.request(RequestParam.REQUEST_UPDATE);
 				dialog.dismiss();
 			}
