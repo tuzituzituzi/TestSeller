@@ -18,9 +18,11 @@ import org.apache.http.message.BasicNameValuePair;
 import android.os.AsyncTask;
 
 import com.whut.config.Constants;
+import com.whut.config.HttpMethod;
 import com.whut.config.RequestParam;
 import com.whut.interfaces.IBasePresenter;
 import com.whut.interfaces.IBaseView;
+import com.whut.util.NetConnection;
 import com.whut.util.WebHelper;
 
 public class WifiClientPresent implements IBasePresenter {
@@ -46,7 +48,8 @@ public class WifiClientPresent implements IBasePresenter {
 //			if(wbAsync !=null && wbAsync.getStatus() == AsyncTask.Status.RUNNING){
 //				wbAsync.cancel(true);
 //			}
-			new WBAsync(this).execute(list.get(0),list.get(1));
+			new NetConnection(this, RequestParam.ADD_BLACK_WHITE, HttpMethod.POST, requestCode, "mac",list.get(0),"class",list.get(1));
+//			new WBAsync(this).execute(list.get(0),list.get(1));
 			
 		}
 		
