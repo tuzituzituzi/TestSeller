@@ -13,11 +13,13 @@ public class RequestParam {
 		public static final int REQUEST_DELETE = 2;
 		public static final int REQUEST_UPDATE = 3;
 		public static final int REQUEST_QUERY = 4;
+		public static final int REQUEST_QUERY_ONE = 5;
+		public static final int REQUEST_QUERY_TWO = 6;
 		
 	
 	    //根地址
-//		public static final String ROOT_HTTP = "http://115.28.9.186:8899/store/service/201";
-		public static final String ROOT_HTTP = "http://219.153.20.141/web/store/service/201";
+		public static final String ROOT_HTTP = "http://115.28.9.186:8020/web/store/service/201";
+//		public static final String ROOT_HTTP = "http://219.153.20.141/web/store/service/201";
 		//添加商品
 		public static final String  ADD_GOODS_PATH = ROOT_HTTP + "/node-tair-web/app/mall/addGoods";
 		//上传图片
@@ -46,7 +48,15 @@ public class RequestParam {
 		public static final String LOGIN_PATH = ROOT_HTTP + "/node-tair-web/account/owner/login";
 		//AP列表
 		public static final String GET_AP_LIST = ROOT_HTTP+"/node-tair-web/ap/list";
-		//AP客户端详细信息
+		//AP详细信息
 		public static final String GET_AP_CLIENT = ROOT_HTTP+"/node-tair-web/ap/client/duration";
+		//获得ssid
+		public static final String GET_AP_SSID = ROOT_HTTP + "/node-tair-web/ap/ssid/get";
+		//修改ssid
+		public static final String UPDATE_AP_SSID = ROOT_HTTP+"/node-tair-web/ap/ssid/set";
+		//添加黑白名单
+		public static final String ADD_BLACK_WHITE = ROOT_HTTP+"/node-tair-web/ap/wblist/add";
+		//获得AP上传下载流量
+		public static final String GET_UPLOAD_DOWNLOAD = ROOT_HTTP+"";
 		
 }

@@ -89,9 +89,9 @@ public class WifiModifyDialog extends Dialog{
 			View layout = inflater.inflate(R.layout.wifi_dialog, null);
 			dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 			final EditText name = (EditText)layout.findViewById(R.id.ed_ap_name);
-			EditText password = (EditText)layout.findViewById(R.id.ed_ap_pwd);
+			final EditText password = (EditText)layout.findViewById(R.id.ed_ap_pwd);
 			name.setText(wifiName);
-			name.setText(wifiPwd);
+			password.setText(wifiPwd);
 			((TextView)layout.findViewById(R.id.tv_ap_mac)).setText(mac);
 			((TextView)layout.findViewById(R.id.tv_online_time)).setText(onlineTime);
 			
@@ -103,6 +103,9 @@ public class WifiModifyDialog extends Dialog{
 						// TODO Auto-generated method stub
 						if(TextUtils.isEmpty(name.getText()) == false){
 							wifiName = name.getText().toString();
+						}
+						if(TextUtils.isEmpty(password.getText())== false){
+							wifiPwd = password.getText().toString();
 						}
 						positiveButtonClickListener.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
 					}

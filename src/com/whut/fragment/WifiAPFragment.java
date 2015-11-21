@@ -8,6 +8,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.pgyersdk.tasks.c;
 import com.whut.activity.WebPageActivity;
 import com.whut.activity.WiFiManageActivity;
 import com.whut.activity.WifiClientActivity;
@@ -53,6 +54,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+//模拟的数据"mac": "60:cd:a9:00:9c:90",
+//"time" 14479264058
+//post  "time"  "mac"
+
 public class WifiAPFragment extends Fragment implements OnClickListener,
 		IBaseView {
 
@@ -66,6 +71,9 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 	private int TIME = 50000;
 	private ProgressDialog pd;
 	private LayoutInflater inflater;
+	private List<String> ssidAndpwd;
+	private List<String> updownList;
+	private int listNum;
 	private String ssid;
 
 	@Override
@@ -89,6 +97,7 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
+				System.out.println(position);
 				if (list.size() < position) {
 
 				} else {
@@ -106,7 +115,7 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 					Bundle bundle = new Bundle();
 					Intent i = new Intent(getActivity(),
 							WifiClientActivity.class);
-					bundle.putString("mac", list.get(position).getMac());
+					bundle.putString("mac", list.get(position-1).getMac());
 					i.putExtras(bundle);
 					startActivity(i);
 
@@ -150,7 +159,9 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 		context = getActivity();
 		list = new ArrayList<APListModel>();
 		adapter = new WifiAdapter();
-
+		ssidAndpwd = new ArrayList<String>();
+		updownList = new ArrayList<String>();
+		ssid = "";
 		presenter = new WifiManagePresenter(this);
 		presenter.request(RequestParam.REQUEST_QUERY);
 		wifiList.setAdapter(adapter);
@@ -184,7 +195,7 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 				holder = new ViewHolder();
 				view = inflater.inflate(R.layout.wifi_aplist_item, null);
 
-				holder.wifiNickname = (TextView) view
+				holder.wifiAlias = (TextView) view
 						.findViewById(R.id.wifi_name);
 				holder.wifiOnlineNumber = (TextView) view
 						.findViewById(R.id.wifi_online_number);
@@ -201,11 +212,12 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 				holder = (ViewHolder) view.getTag();
 			}
 
-			holder.wifiNickname.setText(list.get(position).getNickname());
+			holder.wifiAlias.setText(list.get(position).getAlias());
 			System.out.println(list.get(position).getOnline());
 			holder.wifiOnlineNumber
 					.setText("" + list.get(position).getOnline());
 			// holder.wifiEditFlag.setBackgroundResource(R.drawable.wifi_edit_flag);
+			
 			holder.wifiUpload.setText(list.get(position).getUpload() + "KB/s");
 			holder.wifiDownload.setText(list.get(position).getDownload()
 					+ "KB/s");
@@ -240,37 +252,11 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 					//
 					// AlertDialog dialog = builder.create();
 					// dialog.show();
-					final WifiModifyDialog.Builder builder = new WifiModifyDialog.Builder(
-							context);
-					builder.setWifiName(list.get(position).getSsid());
-					builder.setWifiPwd("123456");
-					builder.setMac(list.get(position).getMac());
-					builder.setOnlineTime("5天10小时45分钟");
-					builder.setPositiveButton(new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							// SsidAsyncTask ssidAsyncTask = new
-							// SsidAsyncTask();
-							// ssidAsyncTask.execute();
-							// pd = new ProgressDialog(context);
-							// pd.show();
-							ssid = builder.getWifiName();
-							presenter.request(RequestParam.REQUEST_UPDATE);
-							dialog.dismiss();
-						}
-					});
-					builder.setNegativeButton(new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							dialog.dismiss();
-						}
-					});
-					WifiModifyDialog dialog = builder.create();
-					dialog.show();
+					System.out.println(position);
+					listNum =position;
+					presenter.request(RequestParam.REQUEST_QUERY_TWO);
+					
+					
 				}
 			});
 
@@ -300,7 +286,7 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 		/**
 		 * 模拟数据
 		 */
-		public TextView wifiNickname;
+		public TextView wifiAlias;
 		public TextView wifiUpload;
 		public TextView wifiDownload;
 		public Button wifiManage;
@@ -342,8 +328,12 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 		// TODO Auto-generated method stub
 		pd = new ProgressDialog(context);
 		pd.show();
-		if (code == 1) {
-			return ssid;
+		if (code == RequestParam.REQUEST_UPDATE) {
+			return ssidAndpwd;
+		}else if(code == RequestParam.REQUEST_QUERY_ONE){
+			return updownList;
+		}else if(code == RequestParam.REQUEST_QUERY_TWO) {
+			return Constants.STORE_ID;
 		}else{
 			return null;
 		}
@@ -354,25 +344,37 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 	@Override
 	public void setInfo(Object obj, int code) {
 		// TODO Auto-generated method stub
+		APListModel ap = null; 
 		pd.dismiss();
 		JSONObject json = JsonUtils.parseJson((String) obj);
-		if (code == 0) {
+		if (code == RequestParam.REQUEST_QUERY) {
 			if (json.getIntValue("code") == 1) {
 				list.clear();
 				JSONArray aplistArray = json.getJSONArray("list");
 				JSONObject apObject;
 				for (int i = 0; i < aplistArray.size(); i++) {
 					apObject = aplistArray.getJSONObject(i);
-					list.add(new APListModel(apObject.getIntValue("id"),
+					ap = new APListModel(apObject.getIntValue("id"),
 							apObject.getIntValue("shopId"), apObject
 									.getString("ssid"), apObject
 									.getString("nickname"), apObject
 									.getString("mac"), apObject
 									.getIntValue("upload"), apObject
 									.getIntValue("download"), apObject
-									.getIntValue("online")));
+									.getIntValue("online"));
+					
+					list.add(ap);
 				}
+				
 				Constants.STORE_ID = list.get(0).getShopId() + "";
+				System.out.println("sotreId:"+Constants.STORE_ID);
+				for(int i = 0;i<list.size();i++){
+					listNum = i;
+					updownList.clear();
+					updownList.add("60:cd:a9:00:9c:90");
+					updownList.add("14479264058");
+					presenter.request(RequestParam.REQUEST_QUERY_ONE);
+				}
 				adapter.notifyDataSetChanged();
 
 			} else {
@@ -380,7 +382,7 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 				System.out.println("获取AP列表失败");
 				Toast.makeText(context, "获取AP列表失败", Toast.LENGTH_SHORT).show();
 			}
-		} else {
+		} else if(code == RequestParam.REQUEST_UPDATE){
 			if (json.getIntValue("code") == 1) {
 				System.out.println("更新ssid成功");
 				Toast.makeText(context, "更新ssid成功", Toast.LENGTH_SHORT).show();
@@ -390,8 +392,68 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 				Toast.makeText(context, "更新ssid失败", Toast.LENGTH_SHORT).show();
 			}
 			
+		}else if(code == RequestParam.REQUEST_QUERY_ONE){
+			if (json.getIntValue("code") == 1) {
+				list.get(listNum).setUpload(15);
+				list.get(listNum).setDownload(33);
+				System.out.println("获取上传下载流量成功");
+				Toast.makeText(context, "获取上传下载流量成功", Toast.LENGTH_SHORT).show();
+			}
+			else{
+				System.out.println("获取上传下载流量失败");
+				Toast.makeText(context, "获取上传下载流量失败", Toast.LENGTH_SHORT).show();
+			}
+		}else if(code == RequestParam.REQUEST_QUERY_TWO){
+			if (json.getIntValue("code") == 1) {
+				JSONObject jsonObject= json.getJSONObject("value");
+				ssid = jsonObject.getString("ssid");
+				if(ssid != ""){
+					System.out.println("listNum="+listNum);
+					wifiModify();
+				}
+				System.out.println(ssid);
+			}
+			 
 		}
+		
+		adapter.notifyDataSetChanged();
 
+		
+	}
+
+	private void wifiModify() {
+		// TODO Auto-generated method stub
+		final WifiModifyDialog.Builder builder = new WifiModifyDialog.Builder(
+				context);
+		
+//		builder.setWifiName(list.get(position).getSsid());
+		System.out.println(ssid);
+		builder.setWifiName(ssid);
+		builder.setWifiPwd("123456");
+		builder.setMac(list.get(listNum).getMac());
+		builder.setOnlineTime("5天10小时45分钟");
+		builder.setPositiveButton(new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String ssid = builder.getWifiName();
+				ssidAndpwd.add(ssid);
+				String password = builder.getWifiPwd();
+				ssidAndpwd.add(password);
+				presenter.request(RequestParam.REQUEST_UPDATE);
+				dialog.dismiss();
+			}
+		});
+		builder.setNegativeButton(new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+			}
+		});
+		WifiModifyDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	@Override

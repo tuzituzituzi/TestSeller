@@ -1,9 +1,11 @@
 package com.whut.activity;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.zip.Inflater;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.pgyersdk.conf.b;
@@ -18,10 +20,13 @@ import com.whut.util.JsonUtils;
 import com.whut.util.PullToRefreshListView;
 import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
 import com.whut.util.PullToRefreshBase.OnRefreshListener;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -37,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("ResourceAsColor")
-public class WifiClientActivity extends Activity implements IBaseView,OnClickListener {
+public class WifiClientActivity extends Activity implements IBaseView {
 
 	private ListView userlist;
 	private UserListAdapter adapter;
@@ -49,7 +54,8 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 	private PullToRefreshListView pullToRefreshListView;
 	private int TIME = 50000;
 	private ProgressDialog pd;
-	private int clickPosition = -1; 
+	private int clickPosition = -1;
+	private List<String> wbList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +63,8 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wifi_userlist);
 		((TextView) findViewById(R.id.activity_title)).setText("查看");
-//		name = getIntent().getStringExtra("apName");
-//		id = getIntent().getIntExtra("apId", 0);
+		// name = getIntent().getStringExtra("apName");
+		// id = getIntent().getIntExtra("apId", 0);
 		name = getIntent().getExtras().getString("mac");
 		System.out.println(name);
 		id = 21;
@@ -67,20 +73,20 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		userlist.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-					long arg3) {
-				System.out.println("position = "+position);
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+				System.out.println("position = " + position);
 				if (position != clickPosition) {
 					clickPosition = position;
 				} else {
 					clickPosition = -1;
 				}
 				adapter.notifyDataSetChanged();
-				
+
 			}
 		});
-		//定时刷新
-//		handler.postDelayed(runnable, TIME);
+		// 定时刷新
+		// handler.postDelayed(runnable, TIME);
 	}
 
 	private void initdata() {
@@ -89,6 +95,7 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		wifiName.setText(name);
 		presenter = new WifiClientPresent(this);
 		list = new ArrayList<APClient>();
+		wbList = new ArrayList<String>();
 
 		pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.wifi_userlist);
 		initRefreshListView();
@@ -185,7 +192,7 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		}
 
 		@Override
-		public View getView(int position, View view, ViewGroup arg2) {
+		public View getView(final int position, View view, ViewGroup arg2) {
 			// TODO Auto-generated method stub
 			UserWifi userWifi = null;
 			if (view == null) {
@@ -198,46 +205,75 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 						.findViewById(R.id.wifi_user_name);
 				userWifi.connectTime = (TextView) view
 						.findViewById(R.id.wifi_user_connect);
-//				userWifi.userMac = (TextView) view.findViewById(R.id.wifi_userlist_mac);
+				// userWifi.userMac = (TextView)
+				// view.findViewById(R.id.wifi_userlist_mac);
 				userWifi.isBlack = view.findViewById(R.id.wifi_add_black);
 				userWifi.isWhite = view.findViewById(R.id.wifi_add_white);
 				userWifi.isVip = view.findViewById(R.id.wifi_add_vip);
 				userWifi.detail = view.findViewById(R.id.wifi_user_detail);
-				userWifi.upload = (TextView) view.findViewById(R.id.wifi_upload_speed);
-				userWifi.download = (TextView) view.findViewById(R.id.wifi_down_speed);
+				userWifi.upload = (TextView) view
+						.findViewById(R.id.wifi_upload_speed);
+				userWifi.download = (TextView) view
+						.findViewById(R.id.wifi_down_speed);
 				view.setTag(userWifi);
 			} else {
 				userWifi = (UserWifi) view.getTag();
 			}
 			userWifi.userName.setText(list.get(position).getClient().getName());
-			
-//			userWifi.userMac.setText(list.get(position).getClientName());
+
+			// userWifi.userMac.setText(list.get(position).getClientName());
 			int cnnTime = list.get(position).getClient().getCnnTime();
 			int authTime = list.get(position).getClient().getAuthTime();
 			String time = getTime(cnnTime, authTime);
 			userWifi.connectTime.setText(time);
-			userWifi.upload.setText(list.get(position).getClient().getUpload()+"KB/s");
-			userWifi.download.setText(list.get(position).getClient().getDownload()+"KB/s");
-			if(list.get(position).getClient().getIsBlack() == 0){
+			userWifi.upload.setText(list.get(position).getClient().getUpload()
+					+ "KB/s");
+			userWifi.download.setText(list.get(position).getClient()
+					.getDownload()
+					+ "KB/s");
+			if (list.get(position).getClient().getIsBlack() == 0) {
 				userWifi.isBlack.setClickable(false);
 				userWifi.isBlack.setBackgroundColor(R.color.gray);
-//				userWifi.isBlack.setText("已加黑名单");
-//				userWifi.isBlack.setTextColor(getResources().getColor(R.color.gray));
+				// userWifi.isBlack.setText("已加黑名单");
+				// userWifi.isBlack.setTextColor(getResources().getColor(R.color.gray));
 			}
-			if(list.get(position).getClient().getIsWhite() == 0){
+			if (list.get(position).getClient().getIsWhite() == 0) {
 				userWifi.isWhite.setClickable(false);
 				userWifi.isWhite.setBackgroundColor(R.color.gray);
-//				userWifi.isWhite.setText("已加白名单");
-//				userWifi.isWhite.setTextColor(getResources().getColor(R.color.gray));
+				// userWifi.isWhite.setText("已加白名单");
+				// userWifi.isWhite.setTextColor(getResources().getColor(R.color.gray));
 			}
-			if(list.get(position).getClient().getIsVip() == 0){
+			if (list.get(position).getClient().getIsVip() == 0) {
 				userWifi.isVip.setClickable(false);
 				userWifi.isVip.setBackgroundColor(R.color.gray);
-//				userWifi.isVip.setText("已加VIP");
-//				userWifi.isVip.setTextColor(getResources().getColor(R.color.gray));
+				// userWifi.isVip.setText("已加VIP");
+				// userWifi.isVip.setTextColor(getResources().getColor(R.color.gray));
 			}
-			
-			
+			userWifi.isBlack.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					alterAddDialog(list.get(position).getClientName(), "black");
+				}
+			});
+			userWifi.isWhite.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					alterAddDialog(list.get(position).getClientName(), "white");
+				}
+			});
+			userWifi.isVip.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					alterAddDialog(list.get(position).getClientName(), "vip");
+				}
+			});
+
 			switch (getCompany(list.get(position).getClientName())) {
 			case 0:
 				userWifi.userIcon.setBackgroundResource(R.drawable.meizu);
@@ -252,9 +288,9 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 				userWifi.userIcon.setBackgroundResource(R.drawable.user_icon1);
 				break;
 			}
-			if(position+1 == clickPosition){
+			if (position + 1 == clickPosition) {
 				userWifi.detail.setVisibility(View.VISIBLE);
-			}else {
+			} else {
 				userWifi.detail.setVisibility(View.GONE);
 			}
 			return view;
@@ -266,7 +302,7 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		private ImageView userIcon;
 		private TextView userName;
 		private TextView connectTime;
-//		private TextView userMac;
+		// private TextView userMac;
 		private View isWhite;
 		private View isBlack;
 		private View isVip;
@@ -274,31 +310,32 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		private TextView upload;
 		private TextView download;
 	}
-	
-	
-	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		switch (arg0.getId()) {
-		case R.id.wifi_add_black:
-			alterAddDialog();
-			break;
 
-		case R.id.wifi_add_white:
-			alterAddDialog();
-			break;
-		case R.id.wifi_add_vip:
-			alterAddDialog();
-			break;
-		default:
-			break;
-		}
+	private void alterAddDialog(String mac, String WBsign) {
+		// TODO Auto-generated method stub
+		TextView view = new TextView(this);
+		view.setText("确定添加至黑名单？");
+		String DecimalMac = getDecimalMac(mac);
+		wbList.clear();
+		wbList.add(DecimalMac);
+		wbList.add(WBsign);
+		new AlertDialog.Builder(this).setTitle("Add " + WBsign + " list")
+				.setView(view)
+				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						
+						presenter.request(RequestParam.REQUEST_UPDATE);
+					}
+				}).setNegativeButton("取消", null).show();
+
 	}
 
-	private void alterAddDialog() {
+	protected String getDecimalMac(String mac) {
 		// TODO Auto-generated method stub
-		Toast.makeText(WifiClientActivity.this, "增加黑名单", Toast.LENGTH_SHORT).show();
-		
+		return mac;
 	}
 
 	@Override
@@ -306,10 +343,14 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		// TODO Auto-generated method stub
 		pd = new ProgressDialog(WifiClientActivity.this);
 		pd.show();
-		return id;
-	}
+		if (code == 0) {
 
-	
+			return id;
+		} else {
+			return wbList;
+		}
+
+	}
 
 	public int getCompany(String clientName) {
 		// TODO Auto-generated method stub
@@ -333,9 +374,9 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 
 		String[] sony = { "AC9B0A", "BC6E64", "A0E453", "1C7B21", "709E29",
 				"00EB2D", "205476", "303926", "B8F934", "FC0FE6", "6C23B9",
-				"58170C", "A8E3EE", "2421AB",  "00219E", "001FA7",
-				"001E45", "001813", "001315", "0013A9", "4040A7", "40B837",
-				"C43ABE", "307512", "4C21D0", "94CE2C", "D05162", "5453ED" };
+				"58170C", "A8E3EE", "2421AB", "00219E", "001FA7", "001E45",
+				"001813", "001315", "0013A9", "4040A7", "40B837", "C43ABE",
+				"307512", "4C21D0", "94CE2C", "D05162", "5453ED" };
 		for (int i = 0; i < apple.length; i++) {
 			if (mac.equals(apple[i]))
 				return 0;
@@ -364,41 +405,54 @@ public class WifiClientActivity extends Activity implements IBaseView,OnClickLis
 		// TODO Auto-generated method stub
 		pd.dismiss();
 		JSONObject json = JsonUtils.parseJson((String) obj);
-		if (json.getIntValue("code") == 1) {
-			list.clear();
-			JSONObject clients = json.getJSONObject("client");
-			for (Entry<String, Object> entity : clients.entrySet()) {
-				JSONObject clientdetail = clients
-						.getJSONObject(entity.getKey());
-				
-				int cnnTime = clientdetail.getIntValue("cnnTime");
-				int authTime = clientdetail.getIntValue("authTime");
-				int state = clientdetail.getIntValue("state");
-				int upload = clientdetail.getIntValue("upload");
-				int download = clientdetail.getIntValue("download");
-				String userName = clientdetail.getString("name");
-				int black = clientdetail.getIntValue("black");
-				int white = clientdetail.getIntValue("white");
-				int vip = clientdetail.getIntValue("vip");
-				
-				ClientDetail clientDetail = new ClientDetail();
-				clientDetail.setCnnTime(cnnTime);
-				clientDetail.setAuthTime(authTime);
-				clientDetail.setState(state);
-				clientDetail.setDownload(download);
-				clientDetail.setUpload(upload);
-				clientDetail.setIsBlack(black);
-				clientDetail.setIsWhite(white);
-				clientDetail.setIsVip(vip);
-				clientDetail.setName(userName);
+		if (code == 0) {
+			if (json.getIntValue("code") == 1) {
+				list.clear();
+				JSONObject clients = json.getJSONObject("client");
+				for (Entry<String, Object> entity : clients.entrySet()) {
+					JSONObject clientdetail = clients.getJSONObject(entity
+							.getKey());
 
-				APClient apClient = new APClient();
-				apClient.setClientName(entity.getKey());
-				apClient.setClient(clientDetail);
-				list.add(apClient);
+					int cnnTime = clientdetail.getIntValue("cnnTime");
+					int authTime = clientdetail.getIntValue("authTime");
+					int state = clientdetail.getIntValue("state");
+					int upload = clientdetail.getIntValue("upload");
+					int download = clientdetail.getIntValue("download");
+					String userName = clientdetail.getString("name");
+					int black = clientdetail.getIntValue("black");
+					int white = clientdetail.getIntValue("white");
+					int vip = clientdetail.getIntValue("vip");
+
+					ClientDetail clientDetail = new ClientDetail();
+					clientDetail.setCnnTime(cnnTime);
+					clientDetail.setAuthTime(authTime);
+					clientDetail.setState(state);
+					clientDetail.setDownload(download);
+					clientDetail.setUpload(upload);
+					clientDetail.setIsBlack(black);
+					clientDetail.setIsWhite(white);
+					clientDetail.setIsVip(vip);
+					clientDetail.setName(userName);
+
+					APClient apClient = new APClient();
+					apClient.setClientName(entity.getKey());
+					apClient.setClient(clientDetail);
+					list.add(apClient);
+				}
+				adapter.notifyDataSetChanged();
 			}
-			adapter.notifyDataSetChanged();
+		} else {
+
+			if (json.getIntValue("code") == 1){
+				
+				System.out.print("添加成功");
+				Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+			}else{
+				System.out.print("添加失败");
+				Toast.makeText(this, "添加失败", Toast.LENGTH_SHORT).show();
+			}
 		}
+
 	}
 
 }

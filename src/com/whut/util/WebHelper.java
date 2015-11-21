@@ -29,9 +29,10 @@ public class WebHelper {
 	 * @return json字符串
 	 * @throws Exception
 	 */
-	public static String getJsonString(String url,String... params)
+	public static String getJsonStringGet(String url)
 			throws Exception {
 		HttpGet get = new HttpGet(url);
+		get.addHeader("Cookie", Constants.USER_COOKIE);
 		HttpClient client = new DefaultHttpClient();
 		HttpResponse response = client.execute(get);
 		return showResponseResult(response);

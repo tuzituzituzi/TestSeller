@@ -19,6 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.os.AsyncTask;
 
+import com.pgyersdk.utils.p;
 import com.whut.config.Constants;
 import com.whut.config.RequestParam;
 import com.whut.data.model.APListModel;
@@ -28,6 +29,8 @@ import com.whut.presenter.WifiClientPresent.APAsync;
 import com.whut.util.WebHelper;
 
 public class WifiManagePresenter implements IBasePresenter {
+
+
 
 	private IBaseView view;
 
@@ -42,13 +45,19 @@ public class WifiManagePresenter implements IBasePresenter {
 
 
 		if (requestCode == RequestParam.REQUEST_QUERY) {
-			view.getInfo(0);
-			// new WifiAsyncRequest(this).execute(RequestParam.GET_AP_LIST);
-			new WifiAsyncRequest(this).execute("http://jsonstub.com/ap/list");
+			view.getInfo(RequestParam.REQUEST_QUERY);
+			 new WifiAsyncRequest(this).execute(RequestParam.GET_AP_LIST);
+//			new WifiAsyncRequest(this).execute("http://jsonstub.com/ap/list");
 		} else if (requestCode == RequestParam.REQUEST_UPDATE) {
-			String ssid = (String) view.getInfo(1);
-			System.out.println("ssid="+ssid);
-			new SsidAsyncTask(this).execute(ssid);
+			List<String> ssidAndpwd = (List<String>) view.getInfo(RequestParam.REQUEST_UPDATE);
+			new SetSsidPwdAsyncTask(this).execute(ssidAndpwd.get(0),ssidAndpwd.get(1));
+		} else if(requestCode == RequestParam.REQUEST_QUERY_ONE){
+			List<String> upDown = (List<String>) view.getInfo(RequestParam.REQUEST_QUERY_ONE);
+			new UpDownAsyncTask(this).execute(upDown.get(0),upDown.get(1));
+			
+		}else if(requestCode == RequestParam.REQUEST_QUERY_TWO){
+			String shopId = (String) view.getInfo(RequestParam.REQUEST_QUERY_TWO);
+			new GetSsidAsyncTask(this).execute(shopId);
 		}
 		
 	}
@@ -74,13 +83,14 @@ public class WifiManagePresenter implements IBasePresenter {
 			try {
 				HttpGet get = new HttpGet(params[0]);
 				/***
-				 * 实际项目的头 get.addHeader("Cookie", Constants.USER_COOKIE);
+				 * 实际项目的头 
 				 */
-				get.addHeader("JsonStub-User-Key",
-						"97c55e90-cda4-4175-94cc-7bbc01120879");
-				get.addHeader("JsonStub-Project-Key",
-						"10b717d9-f875-4e1f-9d34-3fb2efdba6d7");
-				get.addHeader("Content-Type", "application/json");
+				get.addHeader("Cookie", Constants.USER_COOKIE);
+//				get.addHeader("JsonStub-User-Key",
+//						"97c55e90-cda4-4175-94cc-7bbc01120879");
+//				get.addHeader("JsonStub-Project-Key",
+//						"10b717d9-f875-4e1f-9d34-3fb2efdba6d7");
+//				get.addHeader("Content-Type", "application/json");
 				HttpClient client = new DefaultHttpClient();
 				HttpResponse response = client.execute(get);
 				HttpEntity respondEntity = response.getEntity();
@@ -101,17 +111,17 @@ public class WifiManagePresenter implements IBasePresenter {
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			System.out.println(result);
-			presenter.response(result, 0);
+			presenter.response(result, RequestParam.REQUEST_QUERY);
 			super.onPostExecute(result);
 		}
 
 	}
 	
-	public class SsidAsyncTask extends AsyncTask<String, Void, String>{
+	public class SetSsidPwdAsyncTask extends AsyncTask<String, Void, String>{
 		
 		private IBasePresenter presenter;
 
-		public SsidAsyncTask(IBasePresenter iBasePresenter) {
+		public SetSsidPwdAsyncTask(IBasePresenter iBasePresenter) {
 			// TODO Auto-generated constructor stub
 			this.presenter = iBasePresenter;
 		}
@@ -123,11 +133,11 @@ public class WifiManagePresenter implements IBasePresenter {
 			List<NameValuePair> ssidNameValue = new ArrayList<NameValuePair>();
 			NameValuePair ssidPair = new BasicNameValuePair("ssid",params[0]);
 			ssidNameValue.add(ssidPair);
-			NameValuePair shopidPair = new BasicNameValuePair("shopId","7");
+			NameValuePair shopidPair = new BasicNameValuePair("shopId","25");
 			ssidNameValue.add(shopidPair);
 			System.out.println(ssidNameValue);
 			try {
-				web = WebHelper.getJsonString("http://219.153.20.141/web/store/service/201/node-tair-web/ap/ssid/set", ssidNameValue);
+				web = WebHelper.getJsonString(RequestParam.UPDATE_AP_SSID, ssidNameValue);
 				System.out.println(web);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -141,11 +151,86 @@ public class WifiManagePresenter implements IBasePresenter {
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			System.out.println("result="+result);
-			presenter.response(result, 1);
+			presenter.response(result, RequestParam.REQUEST_UPDATE);
 			super.onPostExecute(result);
 		}
 
 	}
 
+	
+	public class UpDownAsyncTask extends AsyncTask<String, Void, String>{
+		
+		private IBasePresenter presenter;
+
+		public UpDownAsyncTask(IBasePresenter wifiManagePresenter) {
+			// TODO Auto-generated constructor stub
+			this.presenter = wifiManagePresenter;
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			String web = "";
+			List<NameValuePair> upDownPairs = new ArrayList<NameValuePair>();
+			NameValuePair mac = new BasicNameValuePair("mac",params[0]);
+			upDownPairs.add(mac);
+			NameValuePair time = new BasicNameValuePair("time",params[1]);
+			upDownPairs.add(time);
+			System.out.println(upDownPairs);
+			try {
+				web = WebHelper.getJsonString(RequestParam.UPDATE_AP_SSID, upDownPairs);
+				System.out.println(web);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				web = e.toString();
+			}
+			return web;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+//			System.out.println("result="+result);
+			result = "{\"code\":1,\"msg\":{}}";
+			presenter.response(result, RequestParam.REQUEST_QUERY_ONE);
+			super.onPostExecute(result);
+		}
+
+	}
+	
+	public class GetSsidAsyncTask extends AsyncTask<String, Void, String>{
+		
+		public IBasePresenter presenter;
+
+		public GetSsidAsyncTask(IBasePresenter wifiManagePresenter) {
+			// TODO Auto-generated constructor stub
+			this.presenter = wifiManagePresenter;
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			String ssid = "";
+			try {
+				ssid = WebHelper.getJsonStringGet(RequestParam.GET_AP_SSID+"?shopId="+params[0]);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				ssid = e.toString();
+			}
+			
+			return ssid;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			System.out.println(result);
+			presenter.response(result, RequestParam.REQUEST_QUERY_TWO);
+			super.onPostExecute(result);
+		}
+
+	}
 
 }
