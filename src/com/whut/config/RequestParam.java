@@ -15,6 +15,7 @@ public class RequestParam {
 		public static final int REQUEST_QUERY = 4;
 		public static final int REQUEST_QUERY_ONE = 5;
 		public static final int REQUEST_QUERY_TWO = 6;
+		public static final int REQUEST_QUERY_THREE = 7;
 		
 	
 	    //根地址
@@ -58,5 +59,6 @@ public class RequestParam {
 		public static final String ADD_BLACK_WHITE = ROOT_HTTP+"/node-tair-web/ap/wblist/add";
 		//获得AP上传下载流量
 		public static final String GET_UPLOAD_DOWNLOAD = ROOT_HTTP+"";
+		
 		
 }

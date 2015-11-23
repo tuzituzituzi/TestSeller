@@ -255,7 +255,8 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 					// dialog.show();
 					System.out.println(position);
 					listNum =position;
-					presenter.request(RequestParam.REQUEST_QUERY_TWO);
+//					presenter.request(RequestParam.REQUEST_QUERY_TWO);
+					presenter.request(RequestParam.REQUEST_QUERY_THREE);
 					
 					
 				}
@@ -335,7 +336,9 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 			return updownList;
 		}else if(code == RequestParam.REQUEST_QUERY_TWO) {
 			return Constants.STORE_ID;
-		}else{
+		}else if(code == RequestParam.REQUEST_QUERY_THREE){
+			return "'[\"mac1\",\"mac2\",\"mac3\"]'";
+		}else {
 			return null;
 		}
 		
@@ -415,6 +418,8 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 				System.out.println(ssid);
 			}
 			 
+		}else if(code == RequestParam.REQUEST_QUERY_THREE){
+			System.out.println(json);
 		}
 		
 		adapter.notifyDataSetChanged();

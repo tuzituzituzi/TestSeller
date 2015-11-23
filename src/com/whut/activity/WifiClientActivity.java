@@ -42,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @SuppressLint("ResourceAsColor")
-public class WifiClientActivity extends Activity implements IBaseView {
+public class WifiClientActivity extends Activity implements IBaseView  {
 
 	private ListView userlist;
 	private UserListAdapter adapter;

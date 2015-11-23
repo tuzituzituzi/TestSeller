@@ -105,6 +105,7 @@ public class WifiManageActivityNew extends Activity implements OnClickListener{
 		case R.id.wifi_ap_portal:
 			setTabSelection(1);
 			break;
+			
 		default:
 			break;
 		}

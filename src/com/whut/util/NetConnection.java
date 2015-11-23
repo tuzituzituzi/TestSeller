@@ -25,6 +25,7 @@ public class NetConnection implements IBasePresenter {
 			protected String doInBackground(Void... params) {
 				// TODO Auto-generated method stub
 				String result = "";
+				String mac_list = "'[\"mac0\",\"mac1\"]'";
 				try {
 
 					switch (method) {

@@ -57,14 +57,17 @@ public class WifiManagePresenter implements IBasePresenter {
 			new NetConnection(this, RequestParam.UPDATE_AP_SSID, HttpMethod.POST, requestCode, "ssid",ssidAndpwd.get(0),"shopId",ssidAndpwd.get(1));
 		} else if(requestCode == RequestParam.REQUEST_QUERY_ONE){
 			List<String> upDown = (List<String>) view.getInfo(RequestParam.REQUEST_QUERY_ONE);
-//			new UpDownAsyncTask(this).execute(upDown.get(0),upDown.get(1));
-			new NetConnection(this,RequestParam.UPDATE_AP_SSID,HttpMethod.POST,requestCode,"mac",upDown.get(0),"time",upDown.get(1));
+			new UpDownAsyncTask(this).execute(upDown.get(0),upDown.get(1));
+//			new NetConnection(this,RequestParam.UPDATE_AP_SSID,HttpMethod.POST,requestCode,"mac",upDown.get(0),"time",upDown.get(1));
 			
 		}else if(requestCode == RequestParam.REQUEST_QUERY_TWO){
 			String shopId = (String) view.getInfo(RequestParam.REQUEST_QUERY_TWO);
 //			new GetSsidAsyncTask(this).execute(shopId);
 			String url = RequestParam.GET_AP_SSID+"?shopId="+shopId;
 			new NetConnection(this, url, HttpMethod.GET, requestCode, "");
+		}else if(requestCode == RequestParam.REQUEST_QUERY_THREE){
+			String maclist = (String) view.getInfo(RequestParam.REQUEST_QUERY_THREE);
+			new APStatusAsyncTask(this).execute(maclist);
 		}
 		
 	}
@@ -165,52 +168,11 @@ public class WifiManagePresenter implements IBasePresenter {
 //	}
 
 	
-//	public class UpDownAsyncTask extends AsyncTask<String, Void, String>{
-//		
-//		private IBasePresenter presenter;
-//
-//		public UpDownAsyncTask(IBasePresenter wifiManagePresenter) {
-//			// TODO Auto-generated constructor stub
-//			this.presenter = wifiManagePresenter;
-//		}
-//
-//		@Override
-//		protected String doInBackground(String... params) {
-//			// TODO Auto-generated method stub
-//			String web = "";
-//			List<NameValuePair> upDownPairs = new ArrayList<NameValuePair>();
-//			NameValuePair mac = new BasicNameValuePair("mac",params[0]);
-//			upDownPairs.add(mac);
-//			NameValuePair time = new BasicNameValuePair("time",params[1]);
-//			upDownPairs.add(time);
-//			System.out.println(upDownPairs);
-//			try {
-//				web = WebHelper.postJsonString(RequestParam.UPDATE_AP_SSID, upDownPairs);
-//				System.out.println(web);
-//			} catch (Exception e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				web = e.toString();
-//			}
-//			return web;
-//		}
-//		
-//		@Override
-//		protected void onPostExecute(String result) {
-//			// TODO Auto-generated method stub
-////			System.out.println("result="+result);
-//			result = "{\"code\":1,\"msg\":{}}";
-//			presenter.response(result, RequestParam.REQUEST_QUERY_ONE);
-//			super.onPostExecute(result);
-//		}
-//
-//	}
-	
-	public class GetSsidAsyncTask extends AsyncTask<String, Void, String>{
+	public class UpDownAsyncTask extends AsyncTask<String, Void, String>{
 		
-		public IBasePresenter presenter;
+		private IBasePresenter presenter;
 
-		public GetSsidAsyncTask(IBasePresenter wifiManagePresenter) {
+		public UpDownAsyncTask(IBasePresenter wifiManagePresenter) {
 			// TODO Auto-generated constructor stub
 			this.presenter = wifiManagePresenter;
 		}
@@ -218,23 +180,123 @@ public class WifiManagePresenter implements IBasePresenter {
 		@Override
 		protected String doInBackground(String... params) {
 			// TODO Auto-generated method stub
-			String ssid = "";
+			String web = "";
+			List<NameValuePair> upDownPairs = new ArrayList<NameValuePair>();
+			NameValuePair mac = new BasicNameValuePair("mac",params[0]);
+			upDownPairs.add(mac);
+			NameValuePair time = new BasicNameValuePair("time",params[1]);
+			upDownPairs.add(time);
+			System.out.println(upDownPairs);
 			try {
-				ssid = WebHelper.getJsonString(RequestParam.GET_AP_SSID+"?shopId="+params[0]);
+				web = WebHelper.postJsonString(RequestParam.UPDATE_AP_SSID, upDownPairs);
+				System.out.println(web);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				ssid = e.toString();
+				web = e.toString();
 			}
-			
-			return ssid;
+			return web;
 		}
 		
 		@Override
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
-			System.out.println(result);
-			presenter.response(result, RequestParam.REQUEST_QUERY_TWO);
+//			System.out.println("result="+result);
+			result = "{\"code\":1,\"msg\":{}}";
+			presenter.response(result, RequestParam.REQUEST_QUERY_ONE);
+			super.onPostExecute(result);
+		}
+
+	}
+	
+//	public class GetSsidAsyncTask extends AsyncTask<String, Void, String>{
+//		
+//		public IBasePresenter presenter;
+//
+//		public GetSsidAsyncTask(IBasePresenter wifiManagePresenter) {
+//			// TODO Auto-generated constructor stub
+//			this.presenter = wifiManagePresenter;
+//		}
+//
+//		@Override
+//		protected String doInBackground(String... params) {
+//			// TODO Auto-generated method stub
+//			String ssid = "";
+//			try {
+//				ssid = WebHelper.getJsonString(RequestParam.GET_AP_SSID+"?shopId="+params[0]);
+//			} catch (Exception e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//				ssid = e.toString();
+//			}
+//			
+//			return ssid;
+//		}
+//		
+//		@Override
+//		protected void onPostExecute(String result) {
+//			// TODO Auto-generated method stub
+//			System.out.println(result);
+//			presenter.response(result, RequestParam.REQUEST_QUERY_TWO);
+//			super.onPostExecute(result);
+//		}
+//
+//	}
+	
+public class APStatusAsyncTask extends AsyncTask<String, Void, String>{
+		
+		private IBasePresenter presenter;
+
+		public APStatusAsyncTask(IBasePresenter wifiManagePresenter) {
+			// TODO Auto-generated constructor stub
+			this.presenter = wifiManagePresenter;
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			String web = "";
+			List<NameValuePair> upDownPairs = new ArrayList<NameValuePair>();
+			
+			try {
+				HttpPost post = new HttpPost("http://jsonstub.com/oa/ap/run-status");
+				post.addHeader("JsonStub-User-Key",
+						"97c55e90-cda4-4175-94cc-7bbc01120879");
+				post.addHeader("JsonStub-Project-Key",
+						"10b717d9-f875-4e1f-9d34-3fb2efdba6d7");
+				post.addHeader("Content-Type", "application/json");
+				List<NameValuePair> list = new ArrayList<NameValuePair>();
+				NameValuePair pair = new BasicNameValuePair("maclist", params[0]);
+				list.add(pair);
+				HttpEntity entity = new UrlEncodedFormEntity(list);
+				post.setEntity(entity);
+				HttpClient client = new DefaultHttpClient();
+				HttpResponse response = client.execute(post);
+				if (response == null){
+					return "error";
+				}
+				HttpEntity entity2 = response.getEntity();
+				InputStream is = entity2.getContent();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+				String line = "";
+				StringBuilder res = new StringBuilder("");
+				while (null != (line = reader.readLine())) {
+					res.append(line);
+				}
+				web =  res.toString();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				web = e.toString();
+			}
+			return web;
+		}
+		
+		@Override
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+			System.out.println("result="+result);
+			presenter.response(result, RequestParam.REQUEST_QUERY_THREE);
 			super.onPostExecute(result);
 		}
 
