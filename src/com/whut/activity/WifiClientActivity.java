@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.pgyersdk.conf.b;
 import com.pgyersdk.feedback.l;
+import com.whut.config.Constants;
 import com.whut.config.RequestParam;
 import com.whut.data.model.APClient;
 import com.whut.data.model.APClient.ClientDetail;
@@ -18,8 +19,10 @@ import com.whut.presenter.WifiClientPresent;
 import com.whut.seller.R;
 import com.whut.util.JsonUtils;
 import com.whut.util.PullToRefreshListView;
+import com.whut.util.WifiModifyDialog;
 import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
 import com.whut.util.PullToRefreshBase.OnRefreshListener;
+import com.whut.util.WifiPopupDialog;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -313,23 +316,38 @@ public class WifiClientActivity extends Activity implements IBaseView  {
 
 	private void alterAddDialog(String mac, String WBsign) {
 		// TODO Auto-generated method stub
-		TextView view = new TextView(this);
-		view.setText("确定添加至黑名单？");
 		String DecimalMac = getDecimalMac(mac);
 		wbList.clear();
 		wbList.add(DecimalMac);
 		wbList.add(WBsign);
-		new AlertDialog.Builder(this).setTitle("Add " + WBsign + " list")
-				.setView(view)
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		String text = "";
+		
+		final WifiPopupDialog.Builder builder = new WifiPopupDialog.Builder(this);
+		if(WBsign == "black"){
+			text = "黑名单";
+		}else{
+			text = "白名单";
+		}
+		builder.setAddText(text);
+		
+		builder.setPositiveButton(new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						
-						presenter.request(RequestParam.REQUEST_UPDATE);
-					}
-				}).setNegativeButton("取消", null).show();
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				presenter.request(RequestParam.REQUEST_UPDATE);
+				dialog.dismiss();
+			}
+		});
+		
+		builder.setNegativeButton(new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		WifiPopupDialog dialog = builder.create();
+		dialog.show();
 
 	}
 

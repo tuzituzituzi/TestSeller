@@ -19,8 +19,9 @@ public class RequestParam {
 		
 	
 	    //根地址
-		public static final String ROOT_HTTP = "http://115.28.9.186:8020/web/store/service/201";
+//		public static final String ROOT_HTTP = "http://115.28.9.186:8020/web/store/service/201";
 //		public static final String ROOT_HTTP = "http://219.153.20.141/web/store/service/201";
+		public static final String ROOT_HTTP = "http://192.168.2.204/web/store/service/201";
 		//添加商品
 		public static final String  ADD_GOODS_PATH = ROOT_HTTP + "/node-tair-web/app/mall/addGoods";
 		//上传图片
@@ -57,6 +58,8 @@ public class RequestParam {
 		public static final String UPDATE_AP_SSID = ROOT_HTTP+"/node-tair-web/ap/ssid/set";
 		//添加黑白名单
 		public static final String ADD_BLACK_WHITE = ROOT_HTTP+"/node-tair-web/ap/wblist/add";
+		//展示黑白名单
+		public static final String GET_BLACK_WHITE_LIST = "/node-tair-web/ap/wblist/list";
 		//获得AP上传下载流量
 		public static final String GET_UPLOAD_DOWNLOAD = ROOT_HTTP+"";
 		

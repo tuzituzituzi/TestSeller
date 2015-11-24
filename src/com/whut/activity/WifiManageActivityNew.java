@@ -8,6 +8,7 @@ import com.whut.seller.R;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -76,6 +77,8 @@ public class WifiManageActivityNew extends Activity implements OnClickListener{
 			apManage.setImageResource(R.drawable.apmanage_2);
 			apPortal.setImageResource(R.drawable.portal_1);
 			break;
+			
+
 	
 		default:
 			break;
@@ -106,6 +109,9 @@ public class WifiManageActivityNew extends Activity implements OnClickListener{
 			setTabSelection(1);
 			break;
 			
+		case R.id.wifi_ap_none:
+			startActivity(new Intent(this,WifiWBManageActivity.class));
+			break;
 		default:
 			break;
 		}

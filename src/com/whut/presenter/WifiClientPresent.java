@@ -48,7 +48,7 @@ public class WifiClientPresent implements IBasePresenter {
 //			if(wbAsync !=null && wbAsync.getStatus() == AsyncTask.Status.RUNNING){
 //				wbAsync.cancel(true);
 //			}
-			new NetConnection(this, RequestParam.ADD_BLACK_WHITE, HttpMethod.POST, requestCode, "mac",list.get(0),"class",list.get(1));
+			new NetConnection(this, RequestParam.ADD_BLACK_WHITE, HttpMethod.POST, requestCode,"shopId",Constants.STORE_ID,"mac",list.get(0),"class",list.get(1));
 //			new WBAsync(this).execute(list.get(0),list.get(1));
 			
 		}

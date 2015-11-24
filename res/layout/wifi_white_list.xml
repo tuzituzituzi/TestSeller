@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <com.whut.util.PullToRefreshListView 
+            android:id="@+id/white_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/wifi_bg"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:divider="@null"
+            android:dividerHeight="10dp">
+        </com.whut.util.PullToRefreshListView >
+    
+
+</LinearLayout>

@@ -255,8 +255,9 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 					// dialog.show();
 					System.out.println(position);
 					listNum =position;
-//					presenter.request(RequestParam.REQUEST_QUERY_TWO);
-					presenter.request(RequestParam.REQUEST_QUERY_THREE);
+					presenter.request(RequestParam.REQUEST_QUERY_TWO);
+//					获取AP info
+//					presenter.request(RequestParam.REQUEST_QUERY_THREE);
 					
 					
 				}

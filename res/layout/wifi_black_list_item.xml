@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corners_wifi4"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@+id/black_user_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:id="@+id/black_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/black_user_icon"
+                android:text="普天小王子" />
+            
+            <TextView
+                android:id="@+id/black_mac"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="60:22:1c:20:ff:00"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="2dp"
+                 android:layout_alignLeft="@+id/black_user_name"
+                android:layout_below="@+id/black_user_name"
+                />
+
+           
+
+            <Button 
+                android:id="@+id/black_delete"
+                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:background="@drawable/corners_wifi"
+                android:text="删除"
+                android:padding="5dp"
+                android:textColor="@color/orange"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                />
+        </RelativeLayout>
+    
+
+</LinearLayout>
