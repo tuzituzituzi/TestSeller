@@ -59,7 +59,7 @@ public class RequestParam {
 		//添加黑白名单
 		public static final String ADD_BLACK_WHITE = ROOT_HTTP+"/node-tair-web/ap/wblist/add";
 		//展示黑白名单
-		public static final String GET_BLACK_WHITE_LIST = "/node-tair-web/ap/wblist/list";
+		public static final String GET_BLACK_WHITE_LIST = ROOT_HTTP + "/node-tair-web/ap/wblist/list";
 		//获得AP上传下载流量
 		public static final String GET_UPLOAD_DOWNLOAD = ROOT_HTTP+"";
 		

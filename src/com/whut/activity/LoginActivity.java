@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,7 +31,7 @@ import com.whut.util.BackAction;
  * 登录界面
  * @author lx
  */
-public class LoginActivity extends Activity implements IBaseView{
+public class LoginActivity extends Activity implements IBaseView,OnClickListener{
 	
 	
 	private Context context;
@@ -66,9 +69,11 @@ public class LoginActivity extends Activity implements IBaseView{
 		dialog = new ProgressDialog(context);
 		userString = null;
 		psdString = null;
+		getNamePwd();
 	}
 
-	
+
+
 	/**
 	 * 登录
 	 */
@@ -140,5 +145,54 @@ public class LoginActivity extends Activity implements IBaseView{
 //			startService(intent);
 			LoginActivity.this.finish();
 		}
+	}
+
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.save_pwd:
+			saveNamePwd();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+//使用SharedPreferences
+	private void saveNamePwd() {
+		// TODO Auto-generated method stub
+		if(!TextUtils.isEmpty(userName.getText())&& !TextUtils.isEmpty(password.getText())){
+			userString = userName.getText().toString();
+			psdString = password.getText().toString();
+			dialog.cancel();
+		}else{
+			Toast.makeText(context, "用户名或密码不能为空！", Toast.LENGTH_SHORT).show();
+			dialog.cancel();
+			return;
+		}
+		SharedPreferences sharedPreferences = getSharedPreferences("NamePwd", MODE_PRIVATE);
+		Editor editor = sharedPreferences.edit();
+		editor.putString("username", userString);
+		editor.putString("password", psdString);
+		System.out.println(userString+" "+psdString+" 传成功");
+		editor.commit();
+	}
+	
+	
+	private void getNamePwd() {
+		// TODO Auto-generated method stub
+		SharedPreferences sharedPreferences = getSharedPreferences("NamePwd", MODE_PRIVATE);
+		String name = sharedPreferences.getString("username", "");
+		String pwd = sharedPreferences.getString("password", "");
+		if((name == "")||(pwd == "")){
+			return;
+		}else{
+			userName.setText(name);
+			password.setText(pwd);
+		}
+		
 	}
 }

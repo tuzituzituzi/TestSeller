@@ -1,69 +1,68 @@
-package com.whut.fragment;
+package com.whut.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.whut.activity.WifiClientActivity;
-import com.whut.config.RequestParam;
-import com.whut.data.model.WBModel;
-import com.whut.interfaces.IBaseView;
-import com.whut.presenter.WifiWBPresenter;
-import com.whut.seller.R;
-import com.whut.util.JsonUtils;
-import com.whut.util.PullToRefreshListView;
-import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
-import com.whut.util.PullToRefreshBase.OnRefreshListener;
-
-import android.app.Fragment;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.whut.config.RequestParam;
+import com.whut.data.model.WBModel;
+import com.whut.interfaces.IBaseView;
+import com.whut.presenter.WifiWBPresenter;
+import com.whut.seller.R;
+import com.whut.util.JsonUtils;
+import com.whut.util.MacBrand;
+import com.whut.util.PullToRefreshListView;
+import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
+import com.whut.util.PullToRefreshBase.OnRefreshListener;
 
-public class WifiWhiteFragment extends Fragment implements IBaseView{
+
+public class WifiWBManageActivityNew extends Activity implements IBaseView,OnClickListener {
 
 	private WifiWBPresenter presenter;
-
-	private LayoutInflater inflater;
 	private Context context;
-	private View view;
 	private ProgressDialog pd;
-	
+
 	private PullToRefreshListView pullToRefreshListView;
 	private ListView blackList;
 	private BlackAdapter adapter;
 	private List<WBModel> list;
 	
+	private View getBlackList;
+	private View getWhiteList;
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View whiteFragment = inflater.inflate(R.layout.wifi_white_list, null);
-		this.inflater = inflater;
-		context = getActivity();
-		this.view = whiteFragment;
-		
-		initview();
-		return whiteFragment;
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_wb_manage_new);
+		init();
 	}
 
-	private void initview() {
+	private void init() {
 		// TODO Auto-generated method stub
+		((TextView) findViewById(R.id.activity_title)).setText("黑白名单");
+		getBlackList = findViewById(R.id.get_black_list);
+		getWhiteList = findViewById(R.id.get_white_list);
 		presenter = new WifiWBPresenter(this);
 		list = new ArrayList<WBModel>();
+		context = this;
 		
-		pullToRefreshListView = (PullToRefreshListView) view.findViewById(R.id.white_list);
+		pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.wb_list);
 		initRefreshListView();
 		blackList = pullToRefreshListView.getRefreshableView();
 		
@@ -71,7 +70,6 @@ public class WifiWhiteFragment extends Fragment implements IBaseView{
 		
 		adapter = new BlackAdapter();
 		blackList.setAdapter(adapter);
-		
 	}
 	
 	private void initRefreshListView() {
@@ -131,6 +129,7 @@ public class WifiWhiteFragment extends Fragment implements IBaseView{
 			WBList wbList = null;
 			if(convertView == null){
 				wbList = new WBList();
+				LayoutInflater inflater = LayoutInflater.from(context);
 				convertView = inflater.inflate(R.layout.wifi_black_list_item, null);
 				wbList.userIcon = (ImageView) convertView.findViewById(R.id.black_user_icon);
 				wbList.userName = (TextView) convertView.findViewById(R.id.black_user_name);
@@ -141,14 +140,29 @@ public class WifiWhiteFragment extends Fragment implements IBaseView{
 				wbList = (WBList) convertView.getTag();
 			}
 			wbList.userName.setText(list.get(position).getWbName());
-			wbList.userIcon.setImageResource(R.drawable.xiaomi);
+			
+			switch (new MacBrand().getCompany(list.get(position).getWbMac())) {
+			case 0:
+				wbList.userIcon.setBackgroundResource(R.drawable.meizu);
+				break;
+			case 2:
+				wbList.userIcon.setBackgroundResource(R.drawable.xiaomi);
+				break;
+			case 3:
+				wbList.userIcon.setBackgroundResource(R.drawable.huawei);
+				break;
+			default:
+				wbList.userIcon.setBackgroundResource(R.drawable.apple);
+				break;
+			}
+			
 			wbList.userMac.setText(list.get(position).getWbMac());
 			wbList.delete.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					Toast.makeText(getActivity(), "删除", Toast.LENGTH_SHORT).show();
+					Toast.makeText(context, "删除", Toast.LENGTH_SHORT).show();
 				}
 			});
 			return convertView;
@@ -193,4 +207,28 @@ public class WifiWhiteFragment extends Fragment implements IBaseView{
 			Toast.makeText(context, "获取白名单失败", Toast.LENGTH_SHORT).show();
 		}
 	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.get_black_list:
+			getBlackList.setBackgroundDrawable(getResources().getDrawable(R.drawable.wifi_list_bg1));
+			getWhiteList.setBackgroundDrawable(getResources().getDrawable(R.drawable.wifi_list_bg2));
+			presenter.request(RequestParam.REQUEST_QUERY_ONE);
+			break;
+		case R.id.get_white_list:
+			getBlackList.setBackgroundDrawable(getResources().getDrawable(R.drawable.wifi_list_bg2));
+			getWhiteList.setBackgroundDrawable(getResources().getDrawable(R.drawable.wifi_list_bg1));
+			presenter.request(RequestParam.REQUEST_QUERY_TWO);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void onBack(View v) {
+		this.finish();
+	}
+
 }

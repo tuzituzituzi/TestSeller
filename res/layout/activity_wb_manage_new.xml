@@ -3,10 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-   
     
-    <LinearLayout
+     <include layout="@layout/common_titlebar"/>
+     <View 
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+         android:background="@color/light_gray"/>
+     
+     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal" >
@@ -15,7 +19,7 @@
             android:id="@+id/get_black_list"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@drawable/wifi_list_bg2"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
@@ -32,10 +36,6 @@
                 android:text="黑名单" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/light_gray" />
 
         <LinearLayout
             android:id="@+id/get_white_list"
@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@color/white"
+            android:background="@drawable/wifi_list_bg1"
             android:orientation="horizontal"
             android:onClick="onClick" 
             android:clickable="true" >
@@ -64,13 +64,16 @@
         android:layout_height="1dp"
         android:layout_width="match_parent"
          android:background="@color/light_gray"/>
+     <com.whut.util.PullToRefreshListView 
+            android:id="@+id/wb_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/wifi_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:divider="@null"
+            android:dividerHeight="10dp">
+        </com.whut.util.PullToRefreshListView >
     
-    <FrameLayout 
-        android:id="@+id/wb_list"
-        android:background="@color/white"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-        
-    </FrameLayout>
 
 </LinearLayout>

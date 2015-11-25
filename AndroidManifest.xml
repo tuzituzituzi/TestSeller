@@ -64,6 +64,7 @@
         <activity android:name="com.whut.activity.WifiManageActivityNew"></activity>
         <activity android:name="com.whut.activity.WifiClientActivity"></activity>
         <activity android:name="com.whut.activity.WifiWBManageActivity"></activity>
+        <activity android:name="com.whut.activity.WifiWBManageActivityNew"></activity>
         <activity android:name="com.whut.activity.WelcomActivity" 
             android:label="@string/app_name">
             <intent-filter>

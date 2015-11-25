@@ -110,7 +110,7 @@ public class WifiManageActivityNew extends Activity implements OnClickListener{
 			break;
 			
 		case R.id.wifi_ap_none:
-			startActivity(new Intent(this,WifiWBManageActivity.class));
+			startActivity(new Intent(this,WifiWBManageActivityNew.class));
 			break;
 		default:
 			break;

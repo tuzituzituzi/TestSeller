@@ -75,7 +75,7 @@ public class WifiClientFragment extends Fragment implements IBaseView{
 				
 			}
 		});
-		handler.postDelayed(runnable, TIME);
+//		handler.postDelayed(runnable, TIME);
 		return clientFragment;
 	}
 

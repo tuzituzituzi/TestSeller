@@ -137,5 +137,10 @@
         <item name="android:windowNoTitle">true</item>  
         <item name="android:windowIsFloating">true</item>  
     </style>
-
+    
+    <!-- 打勾的样式 -->
+    <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item  name="android:button">@drawable/login_checkbox</item>   
+    </style>
+    
 </resources>
