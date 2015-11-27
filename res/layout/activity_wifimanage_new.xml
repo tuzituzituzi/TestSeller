@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="8dp"
             android:onClick="onClick"
-            android:src="@drawable/apicon"/>
+            android:src="@drawable/white_black_1"/>
     </LinearLayout>
     
 

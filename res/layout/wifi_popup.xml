@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="确认添加"
+            android:text="设置"
             android:textColor="#00A0E9" 
             android:layout_gravity="center_vertical"/>
     </LinearLayout>

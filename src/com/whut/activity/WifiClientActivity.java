@@ -329,7 +329,7 @@ public class WifiClientActivity extends Activity implements IBaseView  {
 		}else{
 			text = "白名单";
 		}
-		builder.setAddText(text);
+		builder.setAddText("确认添加至"+text);
 		
 		builder.setPositiveButton(new DialogInterface.OnClickListener() {
 

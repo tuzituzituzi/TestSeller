@@ -2,10 +2,12 @@ package com.whut.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.whut.config.RequestParam;
@@ -29,6 +32,8 @@ import com.whut.util.MacBrand;
 import com.whut.util.PullToRefreshListView;
 import com.whut.util.PullToRefreshBase.OnLastItemVisibleListener;
 import com.whut.util.PullToRefreshBase.OnRefreshListener;
+import com.whut.util.WifiPopupDialog.Builder;
+import com.whut.util.WifiPopupDialog;
 
 
 public class WifiWBManageActivityNew extends Activity implements IBaseView,OnClickListener {
@@ -162,7 +167,28 @@ public class WifiWBManageActivityNew extends Activity implements IBaseView,OnCli
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					Toast.makeText(context, "删除", Toast.LENGTH_SHORT).show();
+					
+					final WifiPopupDialog.Builder builder = new WifiPopupDialog.Builder(context);
+					builder.setAddText("确认删除");
+					builder.setPositiveButton(new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							Toast.makeText(context, "删除", Toast.LENGTH_SHORT).show();
+							dialog.dismiss();
+						}
+					});
+					builder.setNegativeButton(new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							dialog.dismiss();
+						}
+					});
+					WifiPopupDialog dialog = builder.create();
+					dialog.show();
 				}
 			});
 			return convertView;
@@ -204,7 +230,7 @@ public class WifiWBManageActivityNew extends Activity implements IBaseView,OnCli
 			
 		adapter.notifyDataSetChanged();	
 		}else{
-			Toast.makeText(context, "获取白名单失败", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, "获取名单失败", Toast.LENGTH_SHORT).show();
 		}
 	}
 

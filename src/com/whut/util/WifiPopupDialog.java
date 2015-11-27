@@ -66,7 +66,7 @@ public class WifiPopupDialog extends Dialog{
 			View layout = inflater.inflate(R.layout.wifi_popup, null);
 			dialog.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         	final TextView addWB = (TextView) layout.findViewById(R.id.tv_add_wb);
-        	addWB.setText("确认添加至"+addText);
+        	addWB.setText(addText);
         	if(positiveButtonClickListener != null){
         		layout.findViewById(R.id.wb_positive_btn).setOnClickListener(new View.OnClickListener() {
 					
