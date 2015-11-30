@@ -32,7 +32,7 @@ public class WelcomActivity extends Activity {
 			@Override
 			public void run() {
 				Intent intent = null;
-				//if(checkFirstLaunche()){
+//				if(checkFirstLaunche()){
 					//intent = new Intent(WelcomActivity.this,PrologueActivity.class);
 				//}else{
 					intent = new Intent(WelcomActivity.this,LoginActivity.class);

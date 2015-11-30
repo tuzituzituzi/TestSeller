@@ -22,6 +22,8 @@ public class RequestParam {
 //		public static final String ROOT_HTTP = "http://115.28.9.186:8020/web/store/service/201";
 //		public static final String ROOT_HTTP = "http://219.153.20.141/web/store/service/201";
 		public static final String ROOT_HTTP = "http://192.168.2.204/web/store/service/201";
+		//获取店铺ID
+		public static final String GET_SHOPID = ROOT_HTTP + "/node-tair-web/ad/shop/list";
 		//添加商品
 		public static final String  ADD_GOODS_PATH = ROOT_HTTP + "/node-tair-web/app/mall/addGoods";
 		//上传图片

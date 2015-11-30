@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <include layout="@layout/common_titlebar_save" />
+
+    <View style="@style/dividing_line_style_thin" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/ads_add_img"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" 
+            android:src="@drawable/ads_add_img"
+            android:scaleType="center"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/first_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginRight="5dp"
+                    android:onClick="selectImage"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ads_add" />
+
+                <ImageView
+                    android:id="@+id/second_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginRight="5dp"
+                    android:onClick="selectImage"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ads_add" />
+
+                <ImageView
+                    android:id="@+id/third_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginRight="5dp"
+                    android:onClick="selectImage"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ads_lock" />
+
+                <ImageView
+                    android:id="@+id/fourth_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginRight="5dp"
+                    android:onClick="selectImage"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ads_lock" />
+
+                <ImageView
+                    android:id="@+id/fifth_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginRight="5dp"
+                    android:onClick="selectImage"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ads_lock" />
+
+                <ImageView
+                    android:id="@+id/sixth_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginRight="5dp"
+                    android:onClick="selectImage"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ads_lock" />
+
+                <ImageView
+                    android:id="@+id/seventh_pic"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:onClick="selectImage"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ads_lock" />
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="开通会员可添加7张广告"
+            android:textColor="@color/gray"
+            android:textSize="10dp" />
+
+        <View
+            style="@style/dividing_line_style_thin"
+            android:layout_marginBottom="3dp" />
+
+        <View style="@style/dividing_line_style_thin" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="图片上传时间"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/ads_choose_shop"
+                android:text="2015-12-1"
+                android:textColor="@color/gray" />
+            <ImageView 
+                android:id="@+id/ads_choose_shop"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/more"/>
+        </RelativeLayout>
+
+        <View style="@style/dividing_line_style_thin" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选择添加店铺"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/ads_choose_pic_name"
+                android:layout_marginRight="10dp"
+                android:text="海澜之家"
+                android:textColor="@color/gray" />
+            
+             <ImageView 
+                android:id="@+id/ads_choose_pic_name"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/more"/>
+        </RelativeLayout>
+
+        <View style="@style/dividing_line_style_thin" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="图片名称"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="秋季宣传海报"
+                android:textColor="@color/gray" />
+        </RelativeLayout>
+
+        <View style="@style/dividing_line_style_thin" />
+    </LinearLayout>
+
+</LinearLayout>

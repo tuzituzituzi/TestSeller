@@ -48,8 +48,8 @@ public class WifiManagePresenter implements IBasePresenter {
 
 		if (requestCode == RequestParam.REQUEST_QUERY) {
 			view.getInfo(RequestParam.REQUEST_QUERY);
-			 new WifiAsyncRequest(this).execute(RequestParam.GET_AP_LIST);
-			 new NetConnection(this, RequestParam.GET_AP_LIST, HttpMethod.GET, requestCode);
+//			 new WifiAsyncRequest(this).execute(RequestParam.GET_AP_LIST);
+			 new NetConnection(this, RequestParam.GET_AP_LIST+"?shopId="+Constants.STORE_ID, HttpMethod.GET, requestCode);
 //			new WifiAsyncRequest(this).execute("http://jsonstub.com/ap/list");
 		} else if (requestCode == RequestParam.REQUEST_UPDATE) {
 			List<String> ssidAndpwd = (List<String>) view.getInfo(RequestParam.REQUEST_UPDATE);

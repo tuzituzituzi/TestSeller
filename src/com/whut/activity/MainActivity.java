@@ -1,10 +1,19 @@
 package com.whut.activity;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.whut.config.Constants;
+import com.whut.config.HttpMethod;
+import com.whut.config.RequestParam;
+import com.whut.interfaces.IBasePresenter;
+import com.whut.interfaces.IBaseView;
 import com.whut.seller.R;
 import com.whut.util.BadgeView;
+import com.whut.util.JsonUtils;
+import com.whut.util.NetConnection;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +31,9 @@ import android.widget.LinearLayout;
  * 主界面
  * @author lx
  */
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements IBaseView{
+
+
 
 	//上下文
 	private Context context;
@@ -35,11 +46,15 @@ public class MainActivity extends Activity{
 	//vip进店信息接收器
 	private BroadcastReceiver receiver;
 	
+	private ChooseShopPresenter presenter;
+	private ProgressDialog pd;
 	
 	protected void onCreate(Bundle bundle){
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_main);
 		context = this;
+		presenter = new ChooseShopPresenter(this);
+		presenter.request(RequestParam.REQUEST_QUERY);
 		image = (ImageView)findViewById(R.id.vip_suspension);
 		vipInfo = (LinearLayout)findViewById(R.id.vip_info);
 		vipInfo.setVisibility(View.GONE);
@@ -173,4 +188,54 @@ public class MainActivity extends Activity{
 			}
 		});
 	}
+
+
+	@Override
+	public Object getInfo(int code) {
+		// TODO Auto-generated method stub
+		pd = new ProgressDialog(MainActivity.this);
+		pd.show();
+		return null;
+	}
+
+
+	@Override
+	public void setInfo(Object obj, int code) {
+		// TODO Auto-generated method stub
+		pd.dismiss();
+		JSONObject json = JsonUtils.parseJson((String) obj);
+		if (json.getIntValue("code") == 1) {
+			JSONArray list = json.getJSONArray("list");
+			JSONObject shop = list.getJSONObject(0);
+			Constants.STORE_ID = shop.getIntValue("id")+"";
+			System.out.println(Constants.STORE_ID);
+		}
+		
+	}
+	
+	public class ChooseShopPresenter implements IBasePresenter{
+		
+		private IBaseView view;
+		
+		public ChooseShopPresenter(IBaseView view){
+			this.view = view;
+		}
+
+		@Override
+		public void request(int requestCode) {
+			// TODO Auto-generated method stub
+			if(requestCode == RequestParam.REQUEST_QUERY){
+				view.getInfo(requestCode);
+				new NetConnection(this, RequestParam.GET_SHOPID, HttpMethod.GET, requestCode);
+			}
+		}
+
+		@Override
+		public void response(String data, int respondCode) {
+			// TODO Auto-generated method stub
+			view.setInfo(data, respondCode);
+		}
+
+	}
+	
 }

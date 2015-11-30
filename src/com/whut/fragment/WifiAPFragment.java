@@ -371,7 +371,6 @@ public class WifiAPFragment extends Fragment implements OnClickListener,
 					list.add(ap);
 				}
 				
-				Constants.STORE_ID = list.get(0).getShopId() + "";
 				System.out.println("sotreId:"+Constants.STORE_ID);
 				for(int i = 0;i<list.size();i++){
 					listNum = i;
